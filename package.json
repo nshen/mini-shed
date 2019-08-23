@@ -1,0 +1,20 @@
+{
+  "name": "mini-shed",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.16.4"
+  },
+  "scripts": {
+    "build:math": "lerna run build --scope @shed/math",
+    "build:gl": "lerna run build --scope @shed/gl",
+    "build:ecs": "lerna run build --scope @shed/ecs",
+    "build:platform": "lerna run build --scope @shed/platform",
+    "build:utils": "lerna run build --scope @shed/utils",
+    "build:render-system": "lerna run build --scope @shed/render-system",
+    "build:cli": "lerna run build --scope @shed/cli",
+    "build": "yarn run build:math && yarn run build:gl && yarn run build:ecs && yarn run build:platform && yarn run build:utils && yarn run build:render-system && yarn run build:cli"
+  }
+}

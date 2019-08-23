@@ -1,0 +1,44 @@
+{
+  "name": "@shed/utils",
+  "version": "0.1.0",
+  "description": "mini-shed utils",
+  "author": "nshen <nshen121@gmail.com> (https://nshen.net)",
+  "keywords": [
+    "minigame"
+  ],
+  "license": "MIT",
+  "module": "./dist/index.es.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nshen/mini-shed.git"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.16",
+    "jest": "^24.8.0",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.18.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "clean": "rimraf dist/*",
+    "build:types": "tsc --emitDeclarationOnly",
+    "bundle": "rollup -c",
+    "build": "npm run clean && npm run build:types && npm run bundle",
+    "test": "jest"
+  },
+  "dependencies": {}
+}

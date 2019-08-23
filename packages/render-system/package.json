@@ -1,0 +1,39 @@
+{
+  "name": "@shed/render-system",
+  "version": "0.1.0",
+  "description": "mini-shed 2d render system",
+  "author": "nshen <nshen121@gmail.com> (https://nshen.net)",
+  "license": "MIT",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nshen/mini-shed.git"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.18.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "clean": "rimraf dist/*",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "npm run clean && npm run build:types && npm run bundle",
+    "bundle": "rollup -c",
+    "watch": "rollup -c -w --environment DEBUG"
+  }
+}

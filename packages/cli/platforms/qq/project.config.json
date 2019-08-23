@@ -1,0 +1,33 @@
+{
+	"description": "@shed/starter",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "game",
+	"libVersion": "1.9.94",
+	"appid": "wx5dcb7161710465c8",
+	"projectname": "@shed/starter",
+	"qqappid": "1108245641",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": []
+		}
+	}
+}

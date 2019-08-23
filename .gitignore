@@ -1,0 +1,8 @@
+node_modules
+dist
+*.log
+packages/**/node_modules
+packages/**/dist
+**/*.log
+**/*.lock
+.vscode

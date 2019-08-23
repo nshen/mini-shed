@@ -1,0 +1,48 @@
+{
+  "name": "@shed/ecs",
+  "version": "0.1.0",
+  "description": "mini entity component system framework",
+  "author": "nshen <nshen121@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nshen/mini-shed.git"
+  },
+  "keywords": [
+    "ecs",
+    "entity",
+    "entity component system",
+    "game framework"
+  ],
+  "license": "MIT",
+  "module": "./dist/index.es.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.16",
+    "babel-plugin-transform-async-to-promises": "^0.8.13",
+    "jest": "^24.8.0",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.18.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "clean": "rimraf dist/*",
+    "build": "npm run clean && npm run build:types && npm run bundle",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:es6": "tsc",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "bundle": "rollup -c",
+    "test": "jest"
+  }
+}

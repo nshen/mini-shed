@@ -1,0 +1,67 @@
+{
+  "name": "@shed/cli",
+  "version": "0.1.0",
+  "description": "mini-shed 命令行工具",
+  "author": "nn <nshen121@gmail.com>",
+  "homepage": "https://github.com/nshen/shed.js#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "bin": {
+    "shed": "lib/index.js",
+    "minished": "lib/index.js",
+    "mini-shed": "lib/index.js"
+  },
+  "preferGlobal": true,
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/fs-extra": "^8.0.0",
+    "axios": "^0.19.0",
+    "babel-plugin-transform-async-to-promises": "^0.8.11",
+    "chalk": "^2.4.2",
+    "commander": "^2.20.0",
+    "extract-zip": "^1.6.7",
+    "figlet": "^1.2.3",
+    "fs-extra": "^8.1.0",
+    "git-clone": "^0.1.0",
+    "glob": "^7.1.4",
+    "ora": "^3.4.0",
+    "path": "^0.12.7",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.18.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-copy-glob": "^0.3.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "spritesheet-js": "^1.2.6"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.9",
+    "typescript": "^3.5.3"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nshen/mini-shed.git"
+  },
+  "scripts": {
+    "clean": "rimraf lib/*",
+    "build": "npm run clean && tsc",
+    "start": "tsc -w",
+    "test": "sudo npm i -g && shed"
+  },
+  "bugs": {
+    "url": "https://github.com/nshen/mini-shed/issues"
+  }
+}
