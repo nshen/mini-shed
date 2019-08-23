@@ -85,8 +85,9 @@ export class WXPlatform implements IPlatform {
     }
 
 
-    getFileSystemManager() {
-        return
-
+    getFileSystemManager(): WXFileSystemManager {
+        if (!this._fileSystemManager)
+            this._fileSystemManager = new WXFileSystemManager();
+        return this._fileSystemManager;
     }
 }

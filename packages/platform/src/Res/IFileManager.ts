@@ -1,10 +1,8 @@
-export interface IFileSystemManager {
+export interface IFileManager {
 
     root: string;
 
-    // appendFile(object)
-
-    download(path: string, name: string, progressCallback?: () => void): Promise<string>;
+    download(path: string, name: string, progressCallback?: (number) => void): Promise<string>;
     unzip(path: string): Promise<void>;
     access(path: string): Promise<void>;
 
