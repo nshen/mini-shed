@@ -1,13 +1,13 @@
-
-import { IFileManager } from "../IFileManager";
-
+import { IFileSystemManager } from "../IFileSystemManager";
 declare var qg: any;
+export class OPPOFileSystemManager implements IFileSystemManager {
+    root: string = "";
 
-// https://developers.weixin.qq.com/minigame/dev/guide/base-ability/file-system.html
+    // appendFile(object)
 
-
-
-export class OPPOFileManager implements IFileManager {
+    // download(path: string, name: string, progressCallback?: () => void): Promise<string>;
+    // unzip(path: string): Promise<void>;
+    // access(path: string): Promise<void>;
 
     protected fs: any;
 
@@ -15,7 +15,7 @@ export class OPPOFileManager implements IFileManager {
         this.fs = qg.getFileSystemManager();
     }
 
-    get root(): string {
+    get USER_DATA_PATH(): string {
         return qg.env.USER_DATA_PATH;
     }
 
@@ -177,7 +177,7 @@ export class OPPOFileManager implements IFileManager {
         })
     }
 
-    download(path: string, name: string, progressCallback?: (number) => void) {
+    download(path: string, name: string, progressCallback: (v: number) => void) {
         return new Promise<string>((resolve, reject) => {
             let tempFilePath = this.root + "/" + name;
             let task = qg.downloadFile({
@@ -186,8 +186,8 @@ export class OPPOFileManager implements IFileManager {
                 success: resolve,
                 fail: reject
             });
-            task.onProgressUpdate((res) => {
-                progressCallback(res.progress);
+            task.onProgressUpdate((res: any) => {
+                progressCallback(res.progress as number);
                 console.log('下载zip', res.progress);
             });
         })
@@ -197,4 +197,7 @@ export class OPPOFileManager implements IFileManager {
 
     }
 
+
 }
+
+

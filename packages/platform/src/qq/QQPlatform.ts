@@ -1,4 +1,5 @@
 import { IPlatform, TouchResult, IRequestOptions, IRequestResponse, IDownloadOptions } from "../IPlatform";
+import { QQFileSystemManager } from "./QQFileSystemManager";
 
 declare var qq: any
 
@@ -84,5 +85,12 @@ export class QQPlatform implements IPlatform {
                 'content-type': 'application/json'
             }
         })
+    }
+
+    protected _fileSystemManager: QQFileSystemManager | null = null;
+    getFileSystemManager(): QQFileSystemManager {
+        if (!this._fileSystemManager)
+            this._fileSystemManager = new QQFileSystemManager();
+        return this._fileSystemManager;
     }
 }

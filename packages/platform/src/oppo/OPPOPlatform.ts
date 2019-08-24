@@ -1,5 +1,6 @@
 import { IPlatform, TouchResult, IRequestOptions, IRequestResponse, IDownloadOptions } from "../IPlatform";
 import { request } from "./request";
+import { OPPOFileSystemManager } from "./OPPOFileSystemManager";
 
 export class OPPOPlatform implements IPlatform {
     protected _mainCanvas: HTMLCanvasElement;
@@ -95,7 +96,12 @@ export class OPPOPlatform implements IPlatform {
         })
     }
 
-
+    protected _fileSystemManager: OPPOFileSystemManager | null = null;
+    getFileSystemManager(): OPPOFileSystemManager {
+        if (!this._fileSystemManager)
+            this._fileSystemManager = new OPPOFileSystemManager();
+        return this._fileSystemManager;
+    }
     //-------------- html5 api ----------------------
 
 

@@ -1,4 +1,5 @@
 import { IPlatform, TouchResult, IRequestOptions, IRequestResponse, IDownloadOptions } from "../IPlatform";
+import { TTFileSystemManager } from "./TTFileSystemManager";
 
 declare var tt: any
 
@@ -83,5 +84,12 @@ export class TTPlatform implements IPlatform {
                 'content-type': 'application/json'
             }
         })
+    }
+
+    protected _fileSystemManager: TTFileSystemManager | null = null;
+    getFileSystemManager(): TTFileSystemManager {
+        if (!this._fileSystemManager)
+            this._fileSystemManager = new TTFileSystemManager();
+        return this._fileSystemManager;
     }
 }

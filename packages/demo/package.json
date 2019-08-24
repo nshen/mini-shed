@@ -1,0 +1,14 @@
+{
+  "name": "@shed/starter",
+  "private": true,
+  "version": "0.1.0",
+  "description": "mini-shed game demo",
+  "author": "nshen<nshen121@gmail.com>(https://nshen.net)",
+  "license": "MIT",
+  "main": "./dist/game.js",
+  "files": [
+    "dist",
+    "lib"
+  ]
+
+}

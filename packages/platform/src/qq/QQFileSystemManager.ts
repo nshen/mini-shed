@@ -1,10 +1,16 @@
-import { IFileManager } from "../IFileManager";
+import { IFileSystemManager } from "../IFileSystemManager";
 
 declare var qq: any;
 
-// https://developers.weixin.qq.com/minigame/dev/guide/base-ability/file-system.html
+export class QQFileSystemManager implements IFileSystemManager {
+    root: string = "";
 
-export class QQFileManager implements IFileManager {
+    // appendFile(object)
+
+    // download(path: string, name: string, progressCallback?: () => void): Promise<string>;
+    // unzip(path: string): Promise<void>;
+    // access(path: string): Promise<void>;
+
 
     protected fs: any;
 
@@ -12,7 +18,7 @@ export class QQFileManager implements IFileManager {
         this.fs = qq.getFileSystemManager();
     }
 
-    get root(): string {
+    get USER_DATA_PATH(): string {
         return qq.env.USER_DATA_PATH + '/';
     }
 
@@ -38,7 +44,7 @@ export class QQFileManager implements IFileManager {
         return new Promise<void>((resolve, reject) => {
             this.fs.readdir({
                 dirPath: path,
-                success: (res) => {
+                success: (res: any) => {
                     resolve(res.files);
                 },
                 fail: () => {
@@ -54,7 +60,7 @@ export class QQFileManager implements IFileManager {
         return new Promise((resolve, reject) => {
             this.fs.getFileInfo({
                 filePath: filePath,
-                success: (res) => {
+                success: (res: any) => {
                     resolve(res);
                     console.log('getFileInfo:', JSON.stringify(res));
                 },
@@ -86,7 +92,7 @@ export class QQFileManager implements IFileManager {
                     console.log('解压成功')
                     resolve()
                 },
-                fail(res) {
+                fail(res: any) {
                     console.log('解压失败', JSON.stringify(res));
                     reject();
                 }
@@ -94,23 +100,23 @@ export class QQFileManager implements IFileManager {
         })
     }
 
-    download(path: string, name: string, progressCallback?: (number) => void) {
+    download(path: string, name: string, progressCallback: (v: number) => void) {
         return new Promise<string>((resolve, reject) => {
             let tempFilePath = this.root + "/" + name;
             let task = qq.downloadFile({
                 url: path,
                 filePath: tempFilePath,
-                success: (msg) => {
+                success: (msg: any) => {
                     console.log('下载成功');
                     console.log(tempFilePath)
                     resolve(tempFilePath);
                 },
-                fail(msg) {
+                fail(msg: any) {
                     console.log('下载失败 ', JSON.stringify(msg))
                     reject(msg);
                 }
             });
-            task.onProgressUpdate((res) => {
+            task.onProgressUpdate((res: any) => {
                 progressCallback(res.progress);
                 console.log('下载zip', res.progress);
             });
@@ -120,5 +126,7 @@ export class QQFileManager implements IFileManager {
 
 
     }
+
+
 
 }

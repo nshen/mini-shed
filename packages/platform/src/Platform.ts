@@ -13,6 +13,7 @@ __PLATFORM_TT__
 __PLATFORM_OPPO__
 */
 export class Platform {
+
     protected static _platform: IPlatform;
 
     public static get(): IPlatform {
@@ -23,9 +24,9 @@ export class Platform {
                 Platform._platform = new WXPlatform();
             if (__PLATFORM_QQ__)
                 Platform._platform = new QQPlatform();
-            if(__PLATFORM_TT__)
+            if (__PLATFORM_TT__)
                 Platform._platform = new TTPlatform();
-            if(__PLATFORM_OPPO__)
+            if (__PLATFORM_OPPO__)
                 Platform._platform = new OPPOPlatform();
 
             if (!Platform._platform) {
@@ -35,5 +36,36 @@ export class Platform {
         return Platform._platform;
     }
 
+    get isH5(): boolean {
+        if (__PLATFORM_H5__)
+            return true;
+        return false;
+    }
+
+    isWEB = this.isH5
+
+    get isWX(): boolean {
+        if (__PLATFORM_WX__)
+            return true;
+        return false;
+    }
+
+    get isQQ(): boolean {
+        if (__PLATFORM_QQ__)
+            return true;
+        return false;
+    }
+
+    get isTT(): boolean {
+        if (__PLATFORM_TT__)
+            return true;
+        return false;
+    }
+
+    get isOPPO(): boolean {
+        if (__PLATFORM_OPPO__)
+            return true;
+        return false;
+    }
 
 }

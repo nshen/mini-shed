@@ -1,5 +1,6 @@
 import { IPlatform, TouchResult, IRequestOptions, IRequestResponse, IDownloadOptions } from "../IPlatform";
 import { request } from "./request";
+import { H5FileSystemManager } from "./H5FileSystemManager";
 // import { downloadFile } from "./downloadFile.js";
 // declare var downloadFile: any;
 // declare module 'downloadFile';
@@ -115,6 +116,12 @@ export class H5Platform implements IPlatform {
         })
     }
 
+    protected _fileSystemManager: H5FileSystemManager | null = null;
+    getFileSystemManager(): H5FileSystemManager {
+        if (!this._fileSystemManager)
+            this._fileSystemManager = new H5FileSystemManager();
+        return this._fileSystemManager;
+    }
 
     //-------------- html5 api ----------------------
 
