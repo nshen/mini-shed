@@ -1,6 +1,6 @@
 {
   "name": "@shed/render-system",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "mini-shed 2d render system",
   "author": "nshen <nshen121@gmail.com> (https://nshen.net)",
   "license": "MIT",
