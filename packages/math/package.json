@@ -1,6 +1,6 @@
 {
   "name": "@shed/math",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "math library for webgl",
   "author": "nshen <nshen121@gmail.com> (https://nshen.net)",
   "keywords": [

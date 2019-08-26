@@ -1,6 +1,6 @@
 {
   "name": "@shed/ecs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "mini entity component system framework",
   "author": "nshen <nshen121@gmail.com>",
   "repository": {

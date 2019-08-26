@@ -1,6 +1,6 @@
 {
   "name": "@shed/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "mini-shed 命令行工具",
   "author": "nn <nshen121@gmail.com>",
   "homepage": "https://github.com/nshen/shed.js#readme",
