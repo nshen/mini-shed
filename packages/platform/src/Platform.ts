@@ -36,33 +36,33 @@ export class Platform {
         return Platform._platform;
     }
 
-    get isH5(): boolean {
+    public static get isH5(): boolean {
         if (__PLATFORM_H5__)
             return true;
         return false;
     }
 
-    isWEB = this.isH5
+    public static isWEB = Platform.isH5;
 
-    get isWX(): boolean {
+    public static get isWX(): boolean {
         if (__PLATFORM_WX__)
             return true;
         return false;
     }
 
-    get isQQ(): boolean {
+    public static get isQQ(): boolean {
         if (__PLATFORM_QQ__)
             return true;
         return false;
     }
 
-    get isTT(): boolean {
+    public static get isTT(): boolean {
         if (__PLATFORM_TT__)
             return true;
         return false;
     }
 
-    get isOPPO(): boolean {
+    public static get isOPPO(): boolean {
         if (__PLATFORM_OPPO__)
             return true;
         return false;

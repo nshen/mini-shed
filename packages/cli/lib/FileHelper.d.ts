@@ -12,5 +12,5 @@ export declare class FileHelper {
     static CLI_PLATFORMS: string;
     static init(): void;
     static json(path: string): Promise<any>;
-    static exist(path: string): Promise<any>;
+    static exist(path: string): Promise<boolean>;
 }
