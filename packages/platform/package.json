@@ -40,5 +40,6 @@
     "build:types": "tsc --emitDeclarationOnly",
     "bundle": "rollup -c --environment DEBUG:false",
     "build": "npm run clean && npm run build:types && npm run bundle"
-  }
+  },
+  "gitHead": "0f069ad12b93597f58179a1eca3633371a4313ef"
 }

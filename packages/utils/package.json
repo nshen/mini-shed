@@ -39,5 +39,6 @@
     "bundle": "rollup -c",
     "build": "npm run clean && npm run build:types && npm run bundle",
     "test": "jest"
-  }
+  },
+  "gitHead": "0f069ad12b93597f58179a1eca3633371a4313ef"
 }
