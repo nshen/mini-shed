@@ -11,6 +11,9 @@
     "minished": "lib/index.js",
     "mini-shed": "lib/index.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "preferGlobal": true,
   "directories": {
     "lib": "lib"
@@ -64,5 +67,5 @@
   "bugs": {
     "url": "https://github.com/nshen/mini-shed/issues"
   },
-  "gitHead": "63eddce7c60a8382e877ef2d956beff509eff844"
+  "gitHead": "e2e58fcd501f28a54bcefaf16be1de2f5b953f66"
 }

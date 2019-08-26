@@ -18,6 +18,9 @@
     "type": "git",
     "url": "git+https://github.com/nshen/mini-shed.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
@@ -41,5 +44,5 @@
     "bundle": "rollup -c --environment DEBUG:false",
     "build": "npm run clean && npm run build:types && npm run bundle"
   },
-  "gitHead": "63eddce7c60a8382e877ef2d956beff509eff844"
+  "gitHead": "e2e58fcd501f28a54bcefaf16be1de2f5b953f66"
 }
