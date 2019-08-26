@@ -46,6 +46,5 @@
     "build:types": "tsc --emitDeclarationOnly",
     "bundle": "rollup -c",
     "test": "jest"
-  },
-  "dependencies": {}
+  }
 }

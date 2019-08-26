@@ -40,6 +40,5 @@
     "build:types": "tsc --emitDeclarationOnly",
     "bundle": "rollup -c --environment DEBUG:false",
     "build": "npm run clean && npm run build:types && npm run bundle"
-  },
-  "dependencies": {}
+  }
 }

@@ -39,6 +39,5 @@
     "bundle": "rollup -c",
     "build": "npm run clean && npm run build:types && npm run bundle",
     "test": "jest"
-  },
-  "dependencies": {}
+  }
 }
