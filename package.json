@@ -1,0 +1,10 @@
+{
+  "name": "mini-shed",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.19.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
