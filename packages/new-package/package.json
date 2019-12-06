@@ -1,5 +1,5 @@
 {
-  "name": "@mini-shed/new-package",
+  "name": "@shed/new-package",
   "version": "0.0.1",
   "description": "a new mini-shed package",
   "module": "dist/new-package.es.js",
