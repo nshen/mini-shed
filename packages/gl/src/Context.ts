@@ -1,4 +1,5 @@
 import { Color } from "./Color";
+import "./debug";
 
 export class Context {
 
@@ -13,7 +14,7 @@ export class Context {
     protected _drawCall: number = 0;
     protected _depthEnabled: boolean = false;
     protected _clearMask = 0;
-    // 
+
     public _gl: WebGLRenderingContext;
 
     constructor(ctx: WebGLRenderingContext) {
