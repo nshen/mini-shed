@@ -9,6 +9,7 @@ export class TTPlatform implements IPlatform {
 
     // ------------------  IPlatform API --------------------
 
+
     getMainCanvas(): HTMLCanvasElement {
         return this._first;
     }
@@ -62,7 +63,7 @@ export class TTPlatform implements IPlatform {
         })
     }
 
-    loadImage(url: string): Promise<HTMLImageElement> {
+    async loadImage(url: string): Promise<HTMLImageElement> {
         return new Promise((resolve, reject) => {
             let img = tt.createImage();
             img.onload = () => {

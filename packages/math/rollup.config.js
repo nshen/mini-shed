@@ -16,7 +16,7 @@ export default [{
         babel({ extensions, include: ['./src/**/*'] }),
     ],
     output: [
-        { file: pkg.module, format: 'es' },
+        { file: pkg.module, format: 'es', sourcemap: true },
     ],
     watch: {
         chokidar: {

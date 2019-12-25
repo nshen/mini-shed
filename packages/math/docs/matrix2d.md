@@ -35,14 +35,6 @@ let m = new Matrix2D();
 
 ## 属性
 
-### float32Array
-
-getter 方法，转换成 Float32Array 类型返回
-
-```
-let a = new Matrix2D(1, 2, 3, 4, 5, 6);
-expect(a.float32Array).toEqual(new Float32Array([1, 2, 0, 3, 4, 0, 5, 6, 1]));
-```
 
 ### determinant
 
@@ -182,7 +174,7 @@ this = m * this
 
 ```
 
-### transformPoint(p: Vector2D): Vector2D
+### transformPoint(p: Vector2D): this
 
 用此矩阵转换一个Vector2D表示的点，参数点`p`会被修改
 
@@ -194,7 +186,7 @@ p = |  b   d   ty |  *  y
 
 ```
 
-### transformVector(v: Vector2D): Vector2D
+### transformVector(v: Vector2D): this
 
 用此矩阵转换一个向量(仅方向，不包含平移)，参数 `v` 会被修改
 
@@ -202,6 +194,15 @@ p = |  b   d   ty |  *  y
      |  a   c   tx |     x
 v =  |  b   d   ty |  *  y
      |  0   0   1  |     0
+```
+### toFloat32Array(out: Float32Array | Array<number>): Float32Array | Array<number>
+
+填充 `out` 数组并返回，数组应为长度 `9` 的 `Float32Array` 或 `Array<number>`
+
+```
+    let temp = new Float32Array(9);
+    a.toArray(temp);
+    expect(temp).toEqual(new Float32Array([1, 2, 0, 3, 4, 0, 5, 6, 1]));
 ```
 
 ## 其他通用方法

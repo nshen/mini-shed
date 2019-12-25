@@ -12,11 +12,10 @@
   },
   "scripts": {
     "build": "rimraf dist/* && rollup -c --environment DEBUG:false & yarn build:types",
-    "build:types": "tsc --declaration true --emitDeclarationOnly --outDir ./dist",
+    "build:types": " tsc --project tsconfig.types.json",
     "watch": "rimraf dist/* && rollup -c -w --environment DEBUG:false"
   },
   "devDependencies": {
-    "typescript": "^3.7.2",
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.2",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
@@ -28,7 +27,8 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-generate-html-template": "^1.6.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.1.2"
+    "rollup-plugin-terser": "^5.1.2",
+    "typescript": "^3.7.2"
   },
   "keywords": [
     "mini-game",
@@ -43,5 +43,8 @@
   "bugs": {
     "url": "https://github.com/nshen/mini-shed/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@shed/math": "^0.2.0"
+  }
 }

@@ -11,8 +11,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf dist/* && rollup -c --environment DEBUG:false & yarn build:types",
-    "build:types": "tsc --declaration true --emitDeclarationOnly --outDir ./dist",
+    "build": "rimraf dist/* && rollup -c --environment DEBUG:false && yarn build:types",
+    "build:types": " tsc --project tsconfig.types.json",
     "watch": "rimraf dist/* && rollup -c -w --environment DEBUG:false"
   },
   "devDependencies": {

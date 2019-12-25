@@ -1,5 +1,7 @@
 import { Context } from "./Context";
 // TODO: gl.TEXTURE_CUBE_MAP
+declare var __DEBUG__: boolean;
+
 export class Texture {
 
     protected _ctx: Context;
@@ -23,7 +25,7 @@ export class Texture {
 
         let gl = this._ctx._gl;
         gl.bindTexture(gl.TEXTURE_2D, this._glTexture);
-         // gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+        // gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
         // To prevent texture wrappings
@@ -71,11 +73,28 @@ export class Texture {
         gl.CLAMP_TO_EDGE;
         gl.REPEAT
      */
-    setWraps(uWrap: number, vWrap: number): void {
+    setWraps(uWrap: number, vWrap: number): this {
         this.bind(this._boundUnit);
         let gl = this._ctx._gl;
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, uWrap);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, vWrap);
+        return this;
+    }
+
+    setWrapsRepeat(): this {
+        this.bind(this._boundUnit);
+        let gl = this._ctx._gl;
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+        return this;
+    }
+
+    setWrapsClampToEdge(): this {
+        this.bind(this._boundUnit);
+        let gl = this._ctx._gl;
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        return this;
     }
 
     // NEAREST = choose 1 pixel from the biggest mip
@@ -84,11 +103,20 @@ export class Texture {
     // LINEAR_MIPMAP_NEAREST = choose the best mip, then blend 4 pixels from that mip
     // NEAREST_MIPMAP_LINEAR = choose the best 2 mips, choose 1 pixel from each, blend them
     // LINEAR_MIPMAP_LINEAR = choose the best 2 mips.choose 4 pixels from each, blend them
-    public setFilters(minFilter: number, magFilter: number): void {
+    public setFilters(minFilter: number, magFilter: number): this {
         let gl = this._ctx._gl;
         this.bind(this._boundUnit);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, minFilter);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, magFilter);
+        return this;
+    }
+
+    public setFiltersLinear(): this {
+        let gl = this._ctx._gl;
+        this.bind(this._boundUnit);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        return this;
     }
 
     protected isPowerOf2(n: number): boolean {

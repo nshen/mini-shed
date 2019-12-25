@@ -1,29 +1,46 @@
-class Binding {
-    constructor(public fn: Function, public context: any, public once: boolean = false) { }
+// Human-readable generic types
+type Id<T> = T;
+type FunctionType<T extends (...args: any) => any> = Id<(...args: Parameters<T>) => ReturnType<T>>;
+
+class Binding<T>{
+    constructor(public fn: T, public context: any, public once: boolean = false) { };
 }
 
-export class EventDispatcher {
+export class EventDispatcher<Events extends { [key: string]: (...args: any) => any; } = { [key: string]: (...args: any) => any; }, K extends keyof Events = keyof Events> {
 
-    protected _bindings: { [k: string]: Binding[] } = {};
+    protected _bindings: { [key in K]?: Binding<FunctionType<Events[K]>>[]; } = {};
 
-    on(event: string, fn: (...args: any[]) => any, context: any = null, once: boolean = false) {
-        let listener = new Binding(fn, context, once);
-        if (!this._bindings[event]) {
+    on(event: K, fn: FunctionType<Events[K]>, context: any = null, once: boolean = false) {
+        if (!this._bindings[event])
             this._bindings[event] = [];
-        }
-        this._bindings[event].push(listener);
+        this._bindings[event].push(new Binding<FunctionType<Events[K]>>(fn, context, once));
     };
 
-    addEventListener = this.on;
-
-    once(event: string, fn: (...args: any[]) => any, context: any) {
+    once(event: K, fn: FunctionType<Events[K]>, context: any = null) {
         this.on(event, fn, context, true);
     };
 
-    emit(event: string, ...args: any[]): boolean {
+    off(event: K, fn?: FunctionType<Events[K]>, context: any = null) {
+        let listeners = this._bindings[event];
+        if (!listeners || listeners.length === 0) return this;
+        if (!fn) {
+            // delete all listeners
+            this._bindings[event].length = 0;
+            return this;
+        }
+        for (let i = listeners.length - 1; i >= 0; i--) {
+            if (listeners[i].fn === fn && context === listeners[i].context) {
+                listeners.splice(i, 1);
+                return this;
+            }
+        }
+        return this;
+    };
+
+    emit(event: K, ...args: Parameters<Events[K]>): boolean {
         if (!this._bindings[event]) return false;
         let listeners = this._bindings[event];
-        let listener
+        let listener;
         for (let i = 0; i < listeners.length; i++) {
             listener = listeners[i];
             if (listener.once) this.off(event, listener.fn, listener.context);
@@ -32,22 +49,13 @@ export class EventDispatcher {
         return true;
     };
 
-    dispatch = this.emit;
+    clear() {
+        this._bindings = {};
+    }
 
-    off(event: string, fn?: Function, context?: any) {
-        if (!this._bindings[event] || this._bindings[event].length === 0) return this;
-        if (!fn) {
-            // delete all listeners
-            this._bindings[event].length = 0;
-            return this;
-        }
-        let listeners = this._bindings[event];
-        for (let i = 0; i < listeners.length; i++) {
-            if (listeners[i].fn === fn && context === listeners[i].context) {
-                listeners.splice(i, 1);
-                return this;
-            }
-        }
-        return this;
-    };
+    addEventListener = this.on;
+    addEventListenerOnce = this.once;
+    removeEventListener = this.off;
+    dispatch = this.emit;
+    removeAllEventListeners = this.clear;
 }

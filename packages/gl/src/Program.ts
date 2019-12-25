@@ -1,4 +1,5 @@
 import { Context } from "./Context";
+declare var __DEBUG__: boolean;
 
 export class Program {
 

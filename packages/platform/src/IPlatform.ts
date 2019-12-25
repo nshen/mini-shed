@@ -2,9 +2,23 @@ import { IFileSystemManager } from "./IFileSystemManager";
 
 export interface IPlatform {
 
+    /**
+     * 返回主 Canvas
+     */
     getMainCanvas(): HTMLCanvasElement;
+
+    /**
+     * 返回文件管理器
+     */
+    getFileSystemManager(): IFileSystemManager;
+
     createCanvas(): HTMLCanvasElement;
     createImage(): HTMLImageElement;
+
+
+    
+    // utils
+    loadImage(url: string): Promise<HTMLImageElement>;
 
     // touch
     onTouchStart(callback: (res: TouchResult) => void): void;
@@ -19,8 +33,6 @@ export interface IPlatform {
 
     downloadFile(options: IDownloadOptions | string): Promise<unknown>;
 
-    // 文件
-    getFileSystemManager(): IFileSystemManager;
 }
 
 // 没实现

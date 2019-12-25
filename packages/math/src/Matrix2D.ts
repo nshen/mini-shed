@@ -12,8 +12,6 @@ export class Matrix2D implements ICommonMethod<Matrix2D>{
     public tx: number;
     public ty: number;
 
-    protected _temp: Float32Array = new Float32Array(9);
-
     public constructor(a: number = 1, b: number = 0, c: number = 0, d: number = 1, tx: number = 0, ty: number = 0) {
         this.a = a;
         this.b = b;
@@ -21,20 +19,6 @@ export class Matrix2D implements ICommonMethod<Matrix2D>{
         this.d = d;
         this.tx = tx;
         this.ty = ty;
-    }
-
-    public get float32Array(): Float32Array {
-        let out = this._temp;
-        out[0] = this.a;
-        out[1] = this.b;
-        out[2] = 0;
-        out[3] = this.c;
-        out[4] = this.d;
-        out[5] = 0;
-        out[6] = this.tx;
-        out[7] = this.ty;
-        out[8] = 1;
-        return this._temp;
     }
 
     public get determinant(): number {
@@ -97,7 +81,7 @@ export class Matrix2D implements ICommonMethod<Matrix2D>{
         if (angle % 360 === 0) {
             t.a = scaleX;
             t.b = 0;
-            t.c = 0
+            t.c = 0;
             t.d = scaleY;
         } else {
             let rad = angle * Deg2Rad;
@@ -185,20 +169,33 @@ export class Matrix2D implements ICommonMethod<Matrix2D>{
         return this;
     }
 
-    public transformPoint(p: Vector2D): Vector2D {
+    public transformPoint(p: Vector2D): this {
 
         let nx: number = this.a * p.x + this.c * p.y + this.tx;
         p.y = this.b * p.x + this.d * p.y + this.ty;
         p.x = nx;
-        return p;
+        return this;
     }
 
-    public transformVector(v: Vector2D): Vector2D {
+    public transformVector(v: Vector2D): this {
 
         let nx: number = this.a * v.x + this.c * v.y;
         v.y = this.b * v.x + this.d * v.y;
         v.x = nx;
-        return v;
+        return this;
+    }
+
+    public toArray(out: Float32Array | Array<number>): Float32Array | Array<number> {
+        out[0] = this.a;
+        out[1] = this.b;
+        out[2] = 0;
+        out[3] = this.c;
+        out[4] = this.d;
+        out[5] = 0;
+        out[6] = this.tx;
+        out[7] = this.ty;
+        out[8] = 1;
+        return out;
     }
 
     // common methods
@@ -221,7 +218,7 @@ export class Matrix2D implements ICommonMethod<Matrix2D>{
             floatEqual(t.c, m.c) &&
             floatEqual(t.d, m.d) &&
             floatEqual(t.tx, m.tx) &&
-            floatEqual(t.ty, m.ty)
+            floatEqual(t.ty, m.ty);
     }
 
     public copyFrom(m: Matrix2D): this {

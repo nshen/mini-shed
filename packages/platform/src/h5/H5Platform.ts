@@ -49,6 +49,19 @@ export class H5Platform implements IPlatform {
         return new Image();
     }
 
+    async loadImage(url: string): Promise<HTMLImageElement> {
+        return new Promise<HTMLImageElement>((resolve, reject) => {
+            let img = new Image();
+            img.onload = () => {
+                resolve(img);
+            }
+            img.onerror = () => {
+                reject()
+            }
+            img.src = url;
+        })
+    }
+
     onTouchStart(callback: (res: TouchResult) => void): void {
         this._mainCanvas.addEventListener('touchstart', (event) => {
             // event.preventDefault();
@@ -92,18 +105,6 @@ export class H5Platform implements IPlatform {
         // return downloadFile({ url, headers, filePath })
     }
 
-    loadImage(url: string): Promise<HTMLImageElement> {
-        return new Promise((resolve, reject) => {
-            let img = new Image();
-            img.onload = () => {
-                resolve(img);
-            }
-            img.onerror = () => {
-                reject()
-            }
-            img.src = url;
-        })
-    }
 
     loadJSON(url: string): Promise<unknown> {
         return this.request({

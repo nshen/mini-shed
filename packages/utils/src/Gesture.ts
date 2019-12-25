@@ -11,11 +11,16 @@ import { EventDispatcher } from "./EventDispatcher";
 import { Tap, Zoom, Drag, Hold } from "./gestures";
 
 export interface IGesture {
-    start(touches: TouchList, changedTouches: TouchList, timeStamp: number): void
-    move(touches: TouchList, changedTouches: TouchList, timeStamp: number): void
-    cancel(touches: TouchList, changedTouches: TouchList, timeStamp: number): void
-    end(touches: TouchList, changedTouches: TouchList, timeStamp: number): void
+    start(touches: TouchList, changedTouches: TouchList, timeStamp: number): void;
+    move(touches: TouchList, changedTouches: TouchList, timeStamp: number): void;
+    cancel(touches: TouchList, changedTouches: TouchList, timeStamp: number): void;
+    end(touches: TouchList, changedTouches: TouchList, timeStamp: number): void;
 }
+
+// todo: typed dispatcher
+type GestureEvents = {
+    'tap': (x: number, y: number) => void;
+};
 
 /**
  *  This is a singleton class use Gesture.get();
@@ -29,10 +34,10 @@ export class Gesture {
     public static HOLD: string = 'hold';
 
     // public static tap: boolean = false;
-    protected _gestures: { [key: string]: IGesture } = {};
+    protected _gestures: { [key: string]: IGesture; } = {};
     protected _dispatcher: EventDispatcher = new EventDispatcher();
 
-    protected static _instance: Gesture
+    protected static _instance: Gesture;
     public static get(): Gesture {
         if (!Gesture._instance) {
             Gesture._instance = new Gesture();
@@ -88,12 +93,12 @@ export class Gesture {
             for (let i in this._gestures) {
                 this._gestures[i].cancel(res.touches, res.changedTouches, res.timeStamp);
             }
-        })
+        });
         Platform.get().onTouchEnd((res) => {
             for (let i in this._gestures) {
                 this._gestures[i].end(res.touches, res.changedTouches, res.timeStamp);
             }
-        })
+        });
     };
 
 }

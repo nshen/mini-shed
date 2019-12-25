@@ -1,0 +1,64 @@
+Arguments: 
+  /usr/bin/node /usr/share/yarn/bin/yarn.js dev
+
+PATH: 
+  /home/nn/bin:/home/nn/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files/ImageMagick-6.9.10-Q16:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files (x86)/GtkSharp/2.12/bin:/mnt/c/Program Files/colortools:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Users/nshen/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Users/nshen/AppData/Local/Pandoc/:/snap/bin:/home/nn/.yarn/bin
+
+Yarn version: 
+  1.19.2
+
+Node version: 
+  12.13.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /mnt/d/code/mini-shed/packages/starter/package.json: Unexpected token } in JSON at position 816
+      at JSON.parse (<anonymous>)
+      at /usr/share/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/share/yarn/lib/cli.js:304:30)
+      at /usr/share/yarn/lib/cli.js:315:13
+
+npm manifest: 
+  {
+    "name": "@shed/starter",
+    "version": "0.2.0",
+    "description": "mini-shed starter",
+    "module": "dist/mini-game.es.js",
+    "keywords": [
+      "mini-game",
+      "wechat"
+    ],
+    "author": "nshen <nshen121@gmail.com>",
+    "homepage": "https://github.com/nshen/mini-shed#readme",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/nshen/mini-shed.git"
+    },
+    "bugs": {
+      "url": "https://github.com/nshen/mini-shed/issues"
+    },
+    "license": "MIT",
+    "dependencies": {
+      "@shed/ecs": "^0.2.0",
+      "@shed/render2d-system": "^0.2.0"
+    },
+    "devDependencies": {
+      "live-server": "^1.2.1",
+      "npm-run-all": "^4.1.5"
+    },
+    "scripts": {
+      "build": "shed build h5",
+      "dev": "npm-run-all  watch server",
+      "server": "live-server --open=./dist/h5 -q",
+      "watch": "shed build h5 --debug",
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

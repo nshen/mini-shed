@@ -10,13 +10,10 @@ test('new Matrix2D', () => {
 // getter
 // ----------------------
 
-test('float32Array', () => {
-    let a = new Matrix2D(1, 2, 3, 4, 5, 6);
-    expect(a.float32Array).toEqual(new Float32Array([1, 2, 0, 3, 4, 0, 5, 6, 1]))
-});
+
 
 test('determinant', () => {
-    let a = new Matrix2D(1, 2, 3, 4, 5, 6)
+    let a = new Matrix2D(1, 2, 3, 4, 5, 6);
     expect(a.determinant).toEqual(-2);
 });
 
@@ -51,8 +48,8 @@ test('translate', () => {
 });
 
 test('fromSRT', () => {
-    let a = new Matrix2D().fromSRT(1, 1, 0, 2, 3)
-    let b = new Matrix2D().scale(1, 1).rotate(0).translate(2, 3)
+    let a = new Matrix2D().fromSRT(1, 1, 0, 2, 3);
+    let b = new Matrix2D().scale(1, 1).rotate(0).translate(2, 3);
     expect(a).toEqual(b);
 
     a.fromSRT(2, 3, 4, 5, 6);
@@ -71,13 +68,13 @@ test('fromTranslation fromRotation fromScale multiply together should equal from
 
     let a = new Matrix2D().append(scale).append(rotate).append(translate);
     let b = new Matrix2D().scale(2, 3).rotate(128).translate(7, 8);
-    expect(a).toEqual(b)
+    expect(a).toEqual(b);
 
-    let c = new Matrix2D().fromSRT(2, 3, 128, 7, 8)
+    let c = new Matrix2D().fromSRT(2, 3, 128, 7, 8);
 
-    expect(a).toEqual(c)
+    expect(a).toEqual(c);
 
-})
+});
 
 test('append should be inverse of prepend', () => {
     let a = new Matrix2D().fromSRT(2, 3, 4, 5, 6);
@@ -87,7 +84,7 @@ test('append should be inverse of prepend', () => {
     // let b = new Matrix2D(9, 8, 7, 6, 5, 4);
     expect(a.clone().append(b)).toEqual(b.clone().prepend(a));
 
-})
+});
 
 test('invert', () => {
 
@@ -111,6 +108,13 @@ test('should transformVector works', () => {
     expect(m.transformPoint(right).equal(new Vector2D(2, 4))).toBeTruthy();
 });
 
+test('toArray', () => {
+    // let a = new Matrix2D(1, 2, 3, 4, 5, 6);
+    // expect(a.float32Array).toEqual(new Float32Array([1, 2, 0, 3, 4, 0, 5, 6, 1]));
+    let temp = new Float32Array(9);
+    expect(a.toArray(temp)).toEqual(new Float32Array([1, 2, 0, 3, 4, 0, 5, 6, 1]));
+});
+
 // common methods
 
 test('reset', () => {
@@ -130,7 +134,7 @@ test('equal', () => {
 test('copyFrom ', () => {
     let a = new Matrix2D(1, 2, 3, 4, 5, 6);
     let b = new Matrix2D();
-    b.copyFrom(a)
+    b.copyFrom(a);
     expect(a).toEqual(b);
 });
 

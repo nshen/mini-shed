@@ -60,8 +60,8 @@ export class WXPlatform implements IPlatform {
         })
     }
 
-    loadImage(url: string): Promise<HTMLImageElement> {
-        return new Promise((resolve, reject) => {
+    async loadImage(url: string): Promise<HTMLImageElement> {
+        return new Promise<HTMLImageElement>((resolve, reject) => {
             let img = wx.createImage();
             img.onload = () => {
                 resolve(img as any as HTMLImageElement);

@@ -1,5 +1,5 @@
 import { Color } from "./Color";
-import "./debug";
+declare var __DEBUG__: boolean;
 
 export class Context {
 
@@ -23,6 +23,13 @@ export class Context {
         this._clearMask = this._gl.COLOR_BUFFER_BIT;
     }
 
+    static fromCanvas(canvas: HTMLCanvasElement) {
+        return new Context(canvas.getContext('webgl') as WebGLRenderingContext);
+    }
+
+    get gl(): WebGLRenderingContext {
+        return this._gl;
+    }
     get drawCall(): number {
         return this._drawCall;
     }
@@ -59,6 +66,38 @@ export class Context {
         this._clearMask &= ~gl.STENCIL_BUFFER_BIT;
     }
 
+    enableBlend() {
+        let gl = this._gl;
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+    }
+
+    blendPremultipliedAlpha() {
+        let gl = this._gl;
+        gl.enable(gl.BLEND);
+        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    }
+
+    blendNotPremultipliedAlpha() {
+        let gl = this._gl;
+        gl.enable(gl.BLEND);
+        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    }
+
+
+    disableBlend() {
+        let gl = this._gl;
+        gl.disable(gl.BLEND);
+    }
+
+    set premultipiledAlpha(b: boolean) {
+        let gl = this._gl;
+        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, b);
+    }
+
     set depthTest(b: boolean) {
         let gl = this._gl;
         if (b)
@@ -67,7 +106,7 @@ export class Context {
             gl.disable(gl.DEPTH_TEST);
     }
 
-    set cullFace(face: 'BACK' | 'FRONT' | 'BOTH' | 'NONE') {
+    cullFace(face: 'BACK' | 'FRONT' | 'BOTH' | 'NONE') {
         let gl = this._gl
         switch (face) {
             case 'BACK':
