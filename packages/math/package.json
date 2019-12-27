@@ -13,22 +13,26 @@
   "scripts": {
     "build": "rimraf dist/* && rollup -c --environment DEBUG:false & yarn build:types",
     "build:types": " tsc --project tsconfig.types.json",
-    "watch": "rimraf dist/* && rollup -c -w --environment DEBUG:false"
+    "watch": "rimraf dist/* && rollup -c -w --environment DEBUG:false",
+    "test": "jest"
   },
   "devDependencies": {
-    "typescript": "^3.7.2",
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.2",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
     "@babel/plugin-proposal-numeric-separator": "^7.2.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/preset-typescript": "^7.7.2",
+    "@types/jest": "^24.0.24",
+    "jest": "^24.9.0",
     "rimraf": "^3.0.0",
     "rollup": "^1.27.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-generate-html-template": "^1.6.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.1.2"
+    "rollup-plugin-terser": "^5.1.2",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2"
   },
   "keywords": [
     "mini-game",

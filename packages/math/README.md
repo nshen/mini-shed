@@ -1,13 +1,32 @@
 # @shed/math
 
-`@shed/math`  是一个兼顾效率与易用性的数学库，可以脱离 `mini-shed` 项目独立使用
+`@shed/math`  尝试兼顾效率与 API 易用性数学库
 
-- [Matrix2D](./docs/matrix2d.md)
-- [Vector2D](./docs/vector2d.md)
 
-参考资料
+## 文档
 
-```
-*  https://www.mathsisfun.com/algebra/matrix-determinant.html
-```
-shed create
+- 2D相关
+
+    - [Vector2D](./docs/vector2d.md)
+    - [Matrix2D](./docs/matrix2d.md)
+
+- 3D相关
+
+    - [Vector3D]   施工中
+    - [Matrix3D]   施工中
+    - [Quaternion] 施工中
+
+- 其他
+ 
+    - [ProjectMatirx](./docs/projectMatrix.md)
+    - [MathUtils](./docs/mathUtils.md)
+
+- 通用方法
+
+    以上类通过实现 `ICommonMethod<T>` 接口，都实现了以下通用方法。
+
+    - `reset()`    重新赋值
+    - `equal()`    判断是否相等
+    - `copyFrom()` 从目标复制
+    - `clone()`    克隆一个新对象
+    - `toString()` 返回字符串表示

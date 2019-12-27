@@ -205,7 +205,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
      * @param {number} sy (description)
      * @returns {Vector2D} (description)
      */
-    public scaleAbout(point: Vector2D, sx: number, sy: number): Vector2D {
+    public scaleAbout(point: Vector2D, sx: number, sy: number): this {
         //  TODO: 图形实例
         ///////////////////////////
         // |sx  0  px(1-sx)|     x
@@ -225,7 +225,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
      * 
      * @memberOf Vector2D
      */
-    public scaleAndAdd(v: Vector2D, scale: number): Vector2D {
+    public scaleAndAdd(v: Vector2D, scale: number): this {
         this.x = this.x + v.x * scale;
         this.y = this.y + v.y * scale;
         return this;
@@ -255,7 +255,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
      * 
      * @memberOf Vector2D
      */
-    public negate(): Vector2D {
+    public negate(): this {
         this.x = -this.x;
         this.y = -this.y;
         return this;
@@ -336,7 +336,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
      * @returns {Vector2D} 非单位向量
      * @memberOf Vector2D
      */
-    public leftHandNormal(): Vector2D {
+    public leftHandNormal(): this {
         let xx: number = this.x;
         this.x = -this.y;
         this.y = xx;
@@ -349,7 +349,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
      * @returns {Vector2D} 非单位向量
      * @memberOf Vector2D
      */
-    public rightHandNormal(): Vector2D {
+    public rightHandNormal(): this {
         let xx: number = this.x;
         this.x = this.y;
         this.y = -xx;
@@ -359,12 +359,11 @@ export class Vector2D implements ICommonMethod<Vector2D> {
     /**
      * 将极坐标转为笛卡尔坐标
      * 
-     * @warning 修改自身
      * @param r 半径长度
      * @param radians 弧度值 ,逆时针正角度
      * @param return 返回自身
      */
-    public fromPolar(r: number, radians: number): Vector2D {
+    public fromPolar(r: number, radians: number): this {
         this.x = r * Math.cos(radians);
         this.y = r * Math.sin(radians);
         return this;
@@ -386,13 +385,12 @@ export class Vector2D implements ICommonMethod<Vector2D> {
     /**
      * 按最大长度夹断 
      * 
-     * @warning 修改本身
      * @param {number} max 最大长度
      * @returns {Vector2D}
      * 
      * @memberOf Vector2D
      */
-    public clampMax(max: number): Vector2D {
+    public clampMax(max: number): this {
         let l: number = Math.sqrt(this.x * this.x + this.y * this.y);
         if (l > max) {
             l = max / l;
@@ -410,7 +408,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
       * 
       * @memberOf Vector2D
       */
-    public rotate(radians: number): Vector2D {
+    public rotate(radians: number): this {
 
         // （矩阵乘法） 
         ////////////////////////////////
@@ -437,7 +435,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
      * 
      * @memberOf Vector2D
      */
-    public rotateAbout(radians: number, point: Vector2D): Vector2D {
+    public rotateAbout(radians: number, point: Vector2D): this {
         let c = this.clone();
         this.sub(point).rotate(radians).add(c);
         return this;
@@ -453,7 +451,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
      * 
      * @memberOf Vector2D
      */
-    public rotateByVector(v: Vector2D): Vector2D {
+    public rotateByVector(v: Vector2D): this {
         let _x: number = this.x;
         let _y: number = this.y;
         this.x = _x * v.x - _y * v.y;
@@ -469,7 +467,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
      * 
      * @memberOf Vector2D
      */
-    public projectOntoV(v: Vector2D): Vector2D {
+    public projectOntoV(v: Vector2D): this {
         //
         //         /|
         //   this / | 
@@ -498,7 +496,7 @@ export class Vector2D implements ICommonMethod<Vector2D> {
       * 
       * @memberOf Vector2D
       */
-    public projectOntoPerpV(v: Vector2D): Vector2D {
+    public projectOntoPerpV(v: Vector2D): this {
 
         //---------------------------------
         //           /|
@@ -518,14 +516,12 @@ export class Vector2D implements ICommonMethod<Vector2D> {
         return this;
     }
 
-
-
     /**
      * 根据入射角 = 反射角理论，计算此向量经过法向量反射后的向量
      * @param n 单位法向量
      * @returns {Vector2D} 反射后得到的向量
      */
-    public reflect(n: Vector2D): Vector2D {
+    public reflect(n: Vector2D): this {
         //  ---------------------------
         //  tail\  |  / head
         //       \ |n/
@@ -565,7 +561,6 @@ export class Vector2D implements ICommonMethod<Vector2D> {
         this.y = v.y;
         return this;
     }
-
 
     /**
      * 复制一个向量

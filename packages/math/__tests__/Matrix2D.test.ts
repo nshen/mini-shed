@@ -97,19 +97,19 @@ test('invert', () => {
 test('should transformVector works', () => {
 
     let right = new Vector2D(1, 0);
-    let m = new Matrix2D().rotate(90).translate(2, 3);
-    expect(m.transformVector(right).equal(new Vector2D(0, 1))).toBeTruthy();
+    new Matrix2D().rotate(90).translate(2, 3).transformVector(right);
+    expect(right.equal(new Vector2D(0, 1))).toBeTruthy();
 
 });
 
 test('should transformVector works', () => {
     let right = new Vector2D(1, 0);
-    let m = new Matrix2D().rotate(90).translate(2, 3);
-    expect(m.transformPoint(right).equal(new Vector2D(2, 4))).toBeTruthy();
+    new Matrix2D().rotate(90).translate(2, 3).transformPoint(right);
+    expect(right.equal(new Vector2D(2, 4))).toBeTruthy();
 });
 
 test('toArray', () => {
-    // let a = new Matrix2D(1, 2, 3, 4, 5, 6);
+    let a = new Matrix2D(1, 2, 3, 4, 5, 6);
     // expect(a.float32Array).toEqual(new Float32Array([1, 2, 0, 3, 4, 0, 5, 6, 1]));
     let temp = new Float32Array(9);
     expect(a.toArray(temp)).toEqual(new Float32Array([1, 2, 0, 3, 4, 0, 5, 6, 1]));

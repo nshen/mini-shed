@@ -24,7 +24,7 @@ export function angleNormalize(angle: number): number {
 /**
  * 浮点数相等
  */
-export function floatEqual(float1: number, float2: number, diff: number = 0.0000005): boolean {
+export function floatEqual(float1: number, float2: number, diff: number = 5.0e-7): boolean {
     return Math.abs(float1 - float2) < diff;
 }
 
