@@ -1,5 +1,5 @@
 
-import { System, ECS, Group, Entity } from "@shed/ecs";
+import { System, Group, Entity } from "@shed/ecs";
 import { PrefebPool } from "./utils/PrefebPool";
 import { TransformComponent } from "@shed/render2d-system";
 
@@ -18,7 +18,6 @@ export class EnemySystem extends System {
         this._pool = this._ecs.state.pool;
     }
 
-
     update() {
         let e: Entity;
         if (++this._frame % 1 === 0) {
@@ -28,6 +27,7 @@ export class EnemySystem extends System {
             // this._ecs.addEntity(this._createEnemy());
         }
 
+        // console.log(this._ecs.state.ctx.width,this._ecs.state.ctx.height)
         let trans: TransformComponent;
         this._group.forEach(e => {
             trans = e.get('transform');

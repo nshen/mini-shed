@@ -23,8 +23,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 path,
                 success: resolve(true),
                 fail: resolve(false)
-            })
-        })
+            });
+        });
     }
 
     appendFile(filePath: string, data: string | ArrayBuffer, encoding: EncodingOption = 'utf8') {
@@ -35,8 +35,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 encoding,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     copyFile(srcPath: string, destPath: string): Promise<void> {
@@ -46,8 +46,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 destPath,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     getFileInfo(filePath: string) {
@@ -56,17 +56,17 @@ export class QQFileSystemManager implements IFileSystemManager {
                 filePath: filePath,
                 success: res => resolve(res.size),
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     getSavedFileList() {
-        return new Promise<{ filePath: string, size: number, createTime: number }[]>((resolve, reject) => {
+        return new Promise<{ filePath: string, size: number, createTime: number; }[]>((resolve, reject) => {
             this.fs.getSavedFileList({
                 success: res => resolve(res.fileList),
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     mkdir(dirPath: string, recursive: boolean = false) {
@@ -76,8 +76,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 recursive,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     readdir(dirPath: string) {
@@ -86,19 +86,19 @@ export class QQFileSystemManager implements IFileSystemManager {
                 dirPath,
                 success: res => resolve(res.files),
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
-    readFile(filePath: string, encoding: EncodingOption = 'binary') {
-        return new Promise<string | ArrayBuffer>((resolve, reject) => {
+    readFile<T extends string | ArrayBuffer>(filePath: string, encoding: EncodingOption = 'binary') {
+        return new Promise<T>((resolve, reject) => {
             this.fs.readFile({
                 filePath,
                 encoding,
                 success: res => resolve(res.data),
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     removeSavedFile(filePath: string) {
@@ -107,8 +107,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 filePath,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     rename(oldPath: string, newPath: string) {
@@ -118,8 +118,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 newPath,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     rmdir(dirPath: string, recursive: boolean = false) {
@@ -129,8 +129,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 recursive,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     saveFile(tempFilePath: string, filePath?: string) {
@@ -140,19 +140,19 @@ export class QQFileSystemManager implements IFileSystemManager {
                 filePath,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
-    stat(path: string, recursive: boolean = false): Promise<{ [key: string]: Stats } | Stats> {
-        return new Promise<{ [key: string]: Stats } | Stats>((resolve, reject) => {
+    stat(path: string, recursive: boolean = false): Promise<{ [key: string]: Stats; } | Stats> {
+        return new Promise<{ [key: string]: Stats; } | Stats>((resolve, reject) => {
             this.fs.stat({
                 path,
                 recursive,
                 success: res => resolve(res.stats),
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     unlink(filePath: string) {
@@ -161,8 +161,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 filePath,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     unzip(zipFilePath: string, targetPath: string) {
@@ -172,8 +172,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 targetPath,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     /**
@@ -190,8 +190,8 @@ export class QQFileSystemManager implements IFileSystemManager {
                 encoding,
                 success: resolve,
                 fail: res => reject(res.errMsg)
-            })
-        })
+            });
+        });
     }
 
     // download(path: string, name: string, progressCallback: (v: number) => void) {

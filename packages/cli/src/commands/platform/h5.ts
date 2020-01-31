@@ -1,26 +1,28 @@
-import { FileHelper } from '../../FileHelper';
+import { BuildEnvironment } from '../build';
+import { FileHelper } from '../../helpers/FileHelper';
+import { getIPAddress } from '../../helpers/getIPAddress';
+
 import { rollup, watch, OutputOptions } from "rollup";
+
+// rollup plugins
 import { terser } from "rollup-plugin-terser";
-const chalk = require('chalk');
-
-var liveServer = require("live-server");
-var QRCode = require('qrcode');
-
-
 const replace = require("rollup-plugin-replace");
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const babel = require('rollup-plugin-babel');
 const copy = require('rollup-plugin-copy-glob');
 const sourcemaps = require('rollup-plugin-sourcemaps');
+
+const chalk = require('chalk');
+const ora = require('ora');
+const QRCode = require('qrcode');
+const liveServer = require("live-server");
+
 const extensions = ['.js', '.ts',];
 
-export async function build_h5(environment) {
+let spinner;
 
-    // fs.ensureDirSync(FileHelper.PROJECT_DIST_H5);
-
-    console.log('开始编译 h5 版本');
-    console.log('debug: ', environment.__DEBUG__);
+export async function build_h5(environment: BuildEnvironment, watchMode: boolean) {
 
     const inputOptions = {
         input: FileHelper.PROJECT_ENTRY,
@@ -34,32 +36,25 @@ export async function build_h5(environment) {
                 extensions,
                 // exclude: null,
                 include: ['src/**/*'],
-
                 presets: ["@babel/preset-typescript"],
                 plugins: [
-                    [
-                        "@babel/proposal-class-properties",
-                        {
-                            "loose": true
-                        }
-                    ],
+                    ["@babel/proposal-class-properties", { "loose": true }],
                     "@babel/proposal-object-rest-spread",
                     ["babel-plugin-transform-async-to-promises", { "inlineHelpers": true }]
                 ]
             }),
             copy([
-                { files: `${FileHelper.CLI_PLATFORMS}/h5/*`, dest: `${FileHelper.PROJECT_DIST_H5}/` }, // copy files in platform folder to dist
+                { files: `${FileHelper.CLI_PLATFORMS}/h5/*`, dest: `${FileHelper.PROJECT_DIST_H5}` }, // copy files in platform folder to dist
                 { files: `${FileHelper.PROJECT_ROOT}/src/assets/**`, dest: `${FileHelper.PROJECT_DIST_H5}` },
             ], { verbose: false }),
-
-            environment.__DEBUG__ && sourcemaps(),
             !environment.__DEBUG__ && terser(),
+            environment.__DEBUG__ && sourcemaps(),
         ]
-
     };
 
     const outputOptions: OutputOptions = {
         name: 'shedgame',
+        // name: 'window', extend: true, globals: {},
         file: `${FileHelper.PROJECT_DIST_H5}/game.js`,
         format: 'iife',
         sourcemap: environment.__DEBUG__,
@@ -78,31 +73,35 @@ export async function build_h5(environment) {
         }
     };
 
-
-
-    if (environment.__DEBUG__) {
-        console.log('------------------------------------------------');
-        console.log(chalk.bold("|       watch 模式开启，监视文件修改中"));
-
-        let firstEnd = true;
+    if (watchMode) {
+        console.log();
+        console.log(chalk.bold('------------------------------------------------'));
+        console.log(chalk.bold('|       watch 模式开启，监视文件修改中         |'));
+        console.log(chalk.bold('------------------------------------------------'));
+        console.log();
+        spinner = ora(`正在编译 ${chalk.cyan('H5')} 版本`).start();
+        let firstEnd = true; //第一次编译成功应显示二维码并弹开浏览器
         let watcher = watch([watchOptions]);
         watcher.on('event', e => {
-            // console.log(e.code);
             switch (e.code) {
                 case "START":
                     break;
                 case "END":
-                    console.log(chalk.green('编译成功 O(∩_∩)O'));
+                    spinner.succeed('编译成功 O(∩_∩)O');
                     console.timeEnd('用时');
                     if (firstEnd) {
-                        QRCode.toString(`http://${getIPAddress()}:8182`, { type: 'terminal' }, function (err, url) {
-                            console.log(url);
-                        });
-                        console.log(`正在打开浏览器：http://${getIPAddress()}:8182`);
                         firstEnd = false;
-                        var params = {
+                        let myIP = getIPAddress();
+                        QRCode.toString(`http://${myIP}:8182`, { type: 'terminal' }, function (err, url) {
+                            console.log(url);
+                            if (!err)
+                                spinner.succeed('生成二维码成功');
+                        });
+                        spinner.succeed(`正在打开浏览器：http://${myIP}:8182`, FileHelper.PROJECT_DIST_H5);
+                        spinner.succeed('WEB目录：' + FileHelper.PROJECT_DIST_H5);
+                        let liveServerParams = {
                             port: 8182, // Set the server port. Defaults to 8080.
-                            host: getIPAddress(), //"0.0.0.0", // Set the address to bind to. Defaults to 0.0.0.0 or process.env.IP.
+                            host: myIP, //"0.0.0.0", // Set the address to bind to. Defaults to 0.0.0.0 or process.env.IP.
                             root: FileHelper.PROJECT_DIST_H5, // Set root directory that's being served. Defaults to cwd.
                             open: true, // When false, it won't load your browser by default.
                             // ignore: 'scss,my/templates', // comma-separated string for paths to ignore
@@ -112,13 +111,11 @@ export async function build_h5(environment) {
                             logLevel: 0, // 0 = errors only, 1 = some, 2 = lots
                             // middleware: [function(req, res, next) { next(); }] // Takes an array of Connect-compatible middleware that are injected into the server middleware stack
                         };
-                        liveServer.start(params);
+                        liveServer.start(liveServerParams);
                     }
                     break;
                 case "BUNDLE_START":
-                    // console.clear();
-                    console.log('------------------------------------------------');
-                    console.log('正在重新编译... ԅ(¯﹃¯ԅ) ');
+                    spinner.start('正在重新编译... ԅ(¯﹃¯ԅ) ');
                     console.time('用时');
                     break;
                 case "ERROR":
@@ -126,44 +123,26 @@ export async function build_h5(environment) {
                     console.log('------------------------------------------------');
                     console.log(JSON.stringify(e.error, null, 4));
                     console.log('------------------------------------------------');
-                    console.log(chalk.red('编译错误') + ' 发现错误如上，请在尝试' + chalk.bold('修复') + '后' + chalk.bold('保存') + '文件，我仍会' + chalk.bold('自动编译') + ' (～o￣3￣)～');
+                    spinner.fail(chalk.red('编译错误') + ' 发现错误如上，请在尝试' + chalk.bold('修复') + '后' + chalk.bold('保存') + '文件，我仍会' + chalk.bold('自动编译') + ' (～o￣3￣)～');
+
                     break;
                 case "FATAL":
-                    console.log('------------------------------------------------');
                     console.timeEnd('用时');
-                    console.error('编译失败', e.error);
+                    spinner.fail('编译失败' + e.error.toString());
                     break;
                 default:
                     break;
             }
         });
-
-
-
-
-
-
-
     } else {
+        spinner = ora(`正在编译 ${chalk.cyan('H5')} 版本`).start();
         let bundle = await rollup(inputOptions);
-        console.log('文件列表:\r\n', bundle.watchFiles.join('\r\n'));
+        console.log();
+        bundle.watchFiles.forEach(e => {
+            console.log(`  ${chalk.cyan('->')} ` + e.toString().trim());
+        });
         await bundle.write(outputOptions);
-    }
-
-
-    // console.log(bundle);
-}
-
-function getIPAddress() {
-    var interfaces = require('os').networkInterfaces();
-    for (var devName in interfaces) {
-        var iface = interfaces[devName];
-        for (var i = 0; i < iface.length; i++) {
-            var alias = iface[i];
-            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
-                return alias.address;
-            }
-        }
+        spinner.succeed('编译成功 O(∩_∩)O');
+        spinner.succeed('WEB目录：' + FileHelper.PROJECT_DIST_H5);
     }
 }
-console.log(getIPAddress()); // 本地ip

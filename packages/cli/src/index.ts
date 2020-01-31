@@ -1,15 +1,18 @@
-// shebang line
+#!/usr/bin/env node
 const chalk = require('chalk');
 const figlet = require('figlet');
 const program = require('commander');
+const pkg = require('../package.json');
+import { create, createSpritesheet, fnt, build, PlatformType } from './commands';
+import { updateCheck } from './helpers/UpdateCheck';
 
-import { create, createSpritesheet, fnt, build, BuildPlatformType } from './commands';
+program.version(pkg.version);
 
 program
     .command('create <name>')
     .alias('c')
     .description('创建一个新的小游戏') // command description
-    .option('-r, --remote [value]', '指定从coding下载还是从github下载，默认为coding', "coding") // args.sugar = value, optional, default is 'Low'
+    .option('-r, --remote [value]', '指定从 coding 下载还是从 gitee 下载，默认为 coding', "coding") // args.sugar = value, optional, default is 'Low'
     .action(function (name: any, options: any) {
         // console.log(options.remote)
         create(name, options.remote);
@@ -19,12 +22,10 @@ program
     .command('build <platform>')
     .alias('b')
     .description('编译到小游戏平台')
-    .option('-d, --debug', '输出额外的debug信息')
-    .option('-w, --watch', '')
-    .action(function (platform: BuildPlatformType, options: any) {
-
-        build(platform, options.debug);
-
+    .option('-d, --debug', '输出额外的debug信息(影响运行效率)')
+    .option('-w, --watch', '持续编译')
+    .action(function (platform: PlatformType, options: any) {
+        build(platform, options.debug, options.watch);
     });
 
 program
@@ -37,7 +38,7 @@ program
 
 program
     .command('fnt <file>')
-    .description('将fnt格式，转换成 shed.js 支持的json格式')
+    .description('将fnt格式，转换成 mini-shed 支持的 json 格式')
     .action(function (file: any) {
         fnt(file);
     });
@@ -57,7 +58,7 @@ program.parse(process.argv);
 
 if (process.argv.length <= 2) {
 
-    console.log(chalk.red(figlet.textSync('mini-shed', { horizontalLayout: 'full' })));
+    console.log(chalk.cyan(figlet.textSync('mini-shed', { horizontalLayout: 'full' })));
     console.log('感谢尝试 mini-shed 小游戏框架 < https://github.com/nshen/mini-shed >');
     // console.log('https://github.com/nshen/mini-shed/issues');
     console.log('有任何问题请入QQ群：431085380');
@@ -67,5 +68,6 @@ if (process.argv.length <= 2) {
     // program.help();
 } else {
     // clear();
-    // console.log(process.argv);
 }
+
+updateCheck();

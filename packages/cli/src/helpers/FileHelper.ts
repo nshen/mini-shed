@@ -18,12 +18,6 @@ export class FileHelper {
     static CLI_ROOT: string;
     static CLI_PLATFORMS: string;
 
-
-    // console.log(__dirname);
-    // console.log(__filename);
-    // console.log(process.cwd());
-    // console.log(path.resolve('./'));
-    // console.log(cacheFolder)
     static init() {
 
         // project目录
@@ -39,19 +33,18 @@ export class FileHelper {
 
 
         // 命令所在目录
-        FileHelper.CLI_ROOT = path.join(__dirname, '../');
-        FileHelper.CLI_PLATFORMS = path.join(__dirname, '../platforms');
-
-        // export const cacheFolder = path.join(__dirname, '../../cache');
-        // export const platformFolder = path.join(__dirname, '../../platforms');
-        // export const rootFolder = path.join(__dirname, '../../');
+        // __dirname : helpers
+        FileHelper.CLI_ROOT = path.join(__dirname, '../../'); // @shed/cli/
+        // console.log('cli_root: ', FileHelper.CLI_ROOT);
+        FileHelper.CLI_PLATFORMS = path.join(FileHelper.CLI_ROOT, './platforms'); // @shed/cli/platforms
+        // console.log('platforsms: ', FileHelper.CLI_PLATFORMS);
     }
 
     static async json(path: string) {
 
         try {
 
-            let pkg = await fs.readFile(path)
+            let pkg = await fs.readFile(path);
             return JSON.parse(pkg.toString());
 
         } catch (error) {

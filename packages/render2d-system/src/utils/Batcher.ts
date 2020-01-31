@@ -1,13 +1,13 @@
 import { VertexBuffer, IndexBuffer, Context, Program, Texture, Color } from "@shed/gl";
 import { Matrix2D, Vector2D } from "@shed/math";
+
 declare var __DEBUG__: boolean;
+
 const A_POS: string = "aPos";
 const U_MVP_MATRIX: string = "uMVP";
-
 const A_UV: string = "aUV";
 const V_UV: string = "vUV";
 const U_SAMPLER: string = "uSampler";
-
 const A_COLOR: string = "aColor";
 const V_COLOR: string = "vColor";
 
@@ -31,8 +31,6 @@ export class Batcher {
     protected _iIdx: number = 0;
     protected _vp: Float32Array = new Float32Array(9);
     protected _tempV: Vector2D = new Vector2D();
-
-
     protected _drawingType: DRAW_TYPE = DRAW_TYPE.NONE;
     protected _lastFlushType: DRAW_TYPE = DRAW_TYPE.NONE;
 
@@ -46,6 +44,7 @@ export class Batcher {
     // wireframe batcher
     protected _wireframeShader: Program;
     protected _penColor: Color = Color.LIGHT_GRAY.clone();
+
     set penColor(c: Color) {
         this._penColor = c;
     }
@@ -69,24 +68,24 @@ export class Batcher {
     protected _createWireframeShader(): Program {
 
         let vs = `
-				attribute vec2 ${A_POS};
-				attribute vec4 ${A_COLOR};
-				uniform mat3 ${U_MVP_MATRIX};
-				varying vec4 ${V_COLOR};
+                attribute vec2 ${A_POS};
+                attribute vec4 ${A_COLOR};
+                uniform mat3 ${U_MVP_MATRIX};
+                varying vec4 ${V_COLOR};
 
-				void main () {
+                void main () {
                     vec3 coords = ${U_MVP_MATRIX} * vec3(${A_POS}, 1.0);
                     gl_Position = vec4(coords.xy, 0.0, 1.0);
-					${V_COLOR} = ${A_COLOR};
-				}
-			`;
+                    ${V_COLOR} = ${A_COLOR};
+                }
+            `;
 
         let fs = `
                 precision mediump float;
                 varying vec4 ${V_COLOR};
-				void main () {
+                void main () {
                     gl_FragColor = ${V_COLOR};
-				}
+                }
             `;
 
         return new Program(this._ctx, vs, fs);
@@ -95,25 +94,25 @@ export class Batcher {
     protected _createTextureShader(): Program {
         let vs = `
                 attribute vec2 ${A_POS};
-				attribute vec2 ${A_UV};
+                attribute vec2 ${A_UV};
                 uniform mat3 ${U_MVP_MATRIX};
-				varying vec2 ${V_UV};
+                varying vec2 ${V_UV};
 
-				void main () {
+                void main () {
                     vec3 coords = ${U_MVP_MATRIX} * vec3(${A_POS}, 1.0);
                     gl_Position = vec4(coords.xy, 0.0, 1.0);
                     ${V_UV} = ${A_UV};
-				}
-			`;
+                }
+            `;
 
         let fs = `
                 precision mediump float;
                 uniform sampler2D ${U_SAMPLER};
                 varying vec2 ${V_UV};
 
-				void main () {
+                void main () {
                     gl_FragColor = texture2D(${U_SAMPLER},${V_UV});
-				}
+                }
             `;
         return new Program(this._ctx, vs, fs);
     }
@@ -121,25 +120,25 @@ export class Batcher {
 
     protected _createColorShader(): Program {
         let vs = `
-				attribute vec2 ${A_POS};
-				attribute vec4 ${A_COLOR};
+                attribute vec2 ${A_POS};
+                attribute vec4 ${A_COLOR};
                 uniform mat3 ${U_MVP_MATRIX};
-				varying vec4 ${V_COLOR};
+                varying vec4 ${V_COLOR};
 
-				void main () {
+                void main () {
                     vec3 coords = ${U_MVP_MATRIX} * vec3(${A_POS}, 1.0);
                     gl_Position = vec4(coords.xy, 0.0, 1.0);
                     ${V_COLOR} = ${A_COLOR};
-				}
-			`;
+                }
+            `;
 
         let fs = `
                 precision mediump float;
                 varying vec4 ${V_COLOR};
 
-				void main () {
+                void main () {
                     gl_FragColor = ${V_COLOR};
-				}
+                }
             `;
         return new Program(this._ctx, vs, fs);
     }
@@ -182,19 +181,6 @@ export class Batcher {
 
         m.transformPoint(temp.reset(x2, y2));
         this._vertexColor(temp.x, temp.y, color);
-
-
-
-        // let out = this._tempV1;
-        // let p = this._tempV2;
-
-        // p.reset(x1, y1);
-        // m.transformPoint(p, out);
-        // this._vertexColor(out.x, out.y, color);
-
-        // p.reset(x2, y2);
-        // m.transformPoint(p, out);
-        // this._vertexColor(out.x, out.y, color);
     };
 
     drawTexture(m: Matrix2D, t: Texture, region: { l: number, r: number, t: number, b: number; }) {
@@ -205,9 +191,7 @@ export class Batcher {
         if (this._texture && this._texture !== t)
             this.flush();
         this._checkVertices(4);
-
         this._texture = t;
-
         /*
             1 2
             0 3
@@ -221,9 +205,7 @@ export class Batcher {
         indexArray[this._iIdx++] = 3 + n;
         indexArray[this._iIdx++] = 2 + n;
 
-
         let vertices = this._vertexArray;
-        // let out = this._tempV1;
 
         let p = this._tempV;
         p.reset(-0.5, 0.5);
@@ -284,7 +266,6 @@ export class Batcher {
         indexArray[this._iIdx++] = 3 + n;
         indexArray[this._iIdx++] = 2 + n;
 
-
         let vertices = this._vertexArray;
 
         let p = this._tempV;
@@ -327,9 +308,7 @@ export class Batcher {
         vertices[this._vIdx++] = color.b;
         vertices[this._vIdx++] = color.a;
         this._numberVertices++;
-
     }
-
 
     flush() {
         let vIdx = this._vIdx;
@@ -337,7 +316,6 @@ export class Batcher {
             return;
 
         if (__DEBUG__) {
-
             let all0 = true;
             this._vp.forEach(value => {
                 if (value !== 0)
@@ -348,8 +326,6 @@ export class Batcher {
                 return;
             }
         }
-
-
 
         switch (this._drawingType) {
             case DRAW_TYPE.TEXTURE:
@@ -389,7 +365,6 @@ export class Batcher {
                 return;
                 break;
         }
-
 
         let arr = this._vertexArray.subarray(0, vIdx);
         this._vertexBuffer.setData(arr, true);

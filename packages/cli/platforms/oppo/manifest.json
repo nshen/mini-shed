@@ -1,6 +1,6 @@
 {
     "package": "net.nshen.shedgame",
-    "name": "Shed.js小游戏",
+    "name": "mini-shed 小游戏",
     "versionName": "1.0.0",
     "versionCode": 10,
     "minPlatformVersion": 1040,

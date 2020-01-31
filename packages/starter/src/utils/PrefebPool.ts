@@ -80,7 +80,6 @@ export class PrefebPool {
             { type: 'spriteSheetAnimation', spritesheet: 'spritesheet', fps: 60, playing: 'explosion' },
             { type: 'explosion' },
         );
-
     }
 
     releaseExplosion(e: Entity) {

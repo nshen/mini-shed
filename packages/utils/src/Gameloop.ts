@@ -66,11 +66,10 @@ export class Gameloop {
             return;
         }
 
-        let w = this._looper;
         this._elapsed = now - this._prev; // real time passed since the last frame
         this._prev = now;
 
-        w.update(this._elapsed);
+        this._looper.update(this._elapsed);
 
         requestAnimationFrame(this.__bindloop);
     }

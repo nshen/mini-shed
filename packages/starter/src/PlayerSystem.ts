@@ -27,7 +27,6 @@ export class PlayerSystem extends System {
             { type: 'render2d', image: { src: this._spritesheet.src, region: this._spritesheet.getRegion('hero.png'), repeat: false, linear: false }, visible: true },
             { type: 'transform', x: ctx.width / 2, y: ctx.height - 80 - 30, width: 80, height: 80, rotation: 0 },
         );
-        // this._group = ecs.getGroup('player', 'transform', 'render');
         this._initTouch();
     }
 
@@ -101,11 +100,18 @@ export class PlayerSystem extends System {
 
     update() {
         let trans = this._player.get<TransformComponent>('transform');
-        if (++this._frame % 1 === 0) {
-            this._ecs.addEntity(this._pool.getBullet(trans.x-15, trans.y - 10));
-            this._ecs.addEntity(this._pool.getBullet(trans.x-30, trans.y - 10));
-            this._ecs.addEntity(this._pool.getBullet(trans.x+15, trans.y - 10));
-            this._ecs.addEntity(this._pool.getBullet(trans.x+30, trans.y - 10));
+        if (++this._frame % 5 === 0) {
+            this._ecs.addEntity(this._pool.getBullet(trans.x, trans.y - 10));
+
+            // this._ecs.addEntity(this._pool.getBullet(trans.x-0, trans.y - 10));
+            // this._ecs.addEntity(this._pool.getBullet(trans.x-0, trans.y - 10));
+            // this._ecs.addEntity(this._pool.getBullet(trans.x-0, trans.y - 10));
+            // this._ecs.addEntity(this._pool.getBullet(trans.x-100, trans.y - 100));
+            // this._ecs.addEntity(this._pool.getBullet(trans.x+100, trans.y - 100));
+            // this._ecs.addEntity(this._pool.getBullet(trans.x+10000, trans.y - 10000));
+            // this._ecs.addEntity(this._pool.getBullet(trans.x+50000, trans.y - 10));
+            // this._ecs.addEntity(this._pool.getBullet(trans.x+1500, trans.y - 10));
+            // this._ecs.addEntity(this._pool.getBullet(trans.x+20000, trans.y - 10));
         }
         if (this.checkIsFingerOnAir(trans.x, trans.y)) {
             this.setAirPosAcrossFingerPosZ(trans);

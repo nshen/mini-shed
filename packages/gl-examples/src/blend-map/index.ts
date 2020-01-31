@@ -1,4 +1,4 @@
-import { VertexBuffer, Color, Context, Program, Texture } from "../../";
+import { VertexBuffer, Color, Context, Program, Texture } from "@shed/gl";
 import { Matrix2D, center2D } from "@shed/math";
 
 const A_POS: string = "aPos";
@@ -6,7 +6,7 @@ const A_UV: string = "aUV";
 const U_MVP_MATRIX: string = "uMVP";
 const U_SAPMLER: string = "uSampler";
 const U_SAPMLER1: string = "uSampler1";
-const V_UV: string = "vUV"
+const V_UV: string = "vUV";
 
 const VS = `
 precision mediump float;
@@ -31,27 +31,25 @@ void main(void) {
     gl_FragColor = color1 * color0;
 }`;
 
-let imgLoaded = 0
+let imgLoaded = 0;
 let img = new Image();
-img.src = './assets/grassy.png'
+img.src = './assets/grassy.png';
 img.onload = () => {
     if (++imgLoaded === 2)
         render();
-}
+};
 
 let img1 = new Image();
-img1.src = './assets/mud.png'
+img1.src = './assets/mud.png';
 img1.onload = () => {
     if (++imgLoaded === 2)
         render();
-}
+};
 
 
 // blendMap
 // https://www.youtube.com/playlist?list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP
 function render() {
-
-
 
     let canvas: HTMLCanvasElement = document.getElementById('c') as HTMLCanvasElement;
     let gl = canvas.getContext('webgl');
@@ -69,7 +67,10 @@ function render() {
         // console.log('proj',proj.transformVector(new Vector2D(479, 469)));
         m.append(proj);
 
-        shader.uMat3(U_MVP_MATRIX, m.float32Array);
+        let arr = new Float32Array(9);
+        m.toArray(arr);
+
+        shader.uMat3(U_MVP_MATRIX, arr);
 
 
         let posBuffer = new VertexBuffer(ctx);
@@ -92,12 +93,7 @@ function render() {
         posBuffer.bindAttributes();
         // texCoordBuffer.bindAttributes();
 
-
-
         ctx.drawArrays(gl.TRIANGLES, 6);
-
-
-
     } else {
         console.log('no webgl support');
     }
@@ -115,6 +111,6 @@ function setRectangle(buffer: VertexBuffer, x: number, y: number, width: number,
         x1, y2, 0.0, 1.0,
         x2, y1, 1.0, 0.0,
         x2, y2, 1.0, 1.0
-    ]), false)
-    console.log(x2, y2)
+    ]), false);
+    console.log(x2, y2);
 }

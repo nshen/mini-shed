@@ -107,7 +107,7 @@ export class Context {
     }
 
     cullFace(face: 'BACK' | 'FRONT' | 'BOTH' | 'NONE') {
-        let gl = this._gl
+        let gl = this._gl;
         switch (face) {
             case 'BACK':
                 gl.enable(gl.CULL_FACE);
@@ -142,8 +142,6 @@ export class Context {
         this._drawCall = 0;
     }
 
-
-
     // turn off the color channel
     colorMask(r: boolean, g: boolean, b: boolean, a: boolean): void {
         this._gl.colorMask(r, g, b, a);
@@ -156,13 +154,13 @@ export class Context {
     // 没有indexbuffer时调用
     // @primitiveType: gl.POINTS, gl.LINES, gl.LINE_STRIP, gl.LINE_LOOP, gl.TRIANGLES, gl.TRIANGLE_STRIP, gl. TRIANGLE_FAN.
     drawArrays(primitiveType: GLenum, count: number, offset: number = 0) {
-        this._gl.drawArrays(primitiveType, offset, count)
+        this._gl.drawArrays(primitiveType, offset, count);
         this._drawCall++;
     }
 
     drawArraysTriangles(count: number, offset: number = 0) {
         let gl = this._gl;
-        gl.drawArrays(gl.TRIANGLES, offset, count)
+        gl.drawArrays(gl.TRIANGLES, offset, count);
         this._drawCall++;
     }
 
@@ -210,14 +208,16 @@ export class Context {
         this._drawCall++;
     }
 
-    //-------------------------------
-
     viewport(x: number, y: number, width: number, height: number) {
         this._gl.viewport(x, y, width, height);
     }
 
-    // 根据css大小设置 drawingbuffer 实际大小 微信环境不支持！！！
-    adjustSize() {
+    /**
+     * 在浏览器环境中，可能由于窗口变化，或CSS影响，需要调用此方法重新适配Canvas大小
+     * 注意：只应在浏览器环境中调用此方法，在小游戏环境中调用会报错
+     * 参考：https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
+     */
+    adjustSize(): boolean {
         let canvas = this._gl.canvas;
         // Lookup the size the browser is displaying the canvas.
         let displayWidth = (canvas as HTMLElement).clientWidth;
@@ -234,10 +234,12 @@ export class Context {
             canvas.width = displayWidth;
             canvas.height = displayHeight;
             this._gl.viewport(0, 0, displayWidth, displayHeight);
+            return true;
         }
+        return false;
     }
 
-    adjustHDSize(realToCSSPixels: number = window.devicePixelRatio) {
+    adjustHDSize(realToCSSPixels: number = window.devicePixelRatio): boolean {
         let canvas = this._gl.canvas;
 
         // Lookup the size the browser is displaying the canvas in CSS pixels
@@ -254,7 +256,9 @@ export class Context {
             canvas.width = displayWidth;
             canvas.height = displayHeight;
             this._gl.viewport(0, 0, displayWidth, displayHeight);
+            return true;
         }
+        return false;
     }
 
     // registMouseDown(fun: (x: number, y: number) => any) {
