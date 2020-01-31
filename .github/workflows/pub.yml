@@ -20,10 +20,10 @@ jobs:
       with:
         fetch-depth: 1
     - name: pub
-    uses: ./.github/actions/git-pub
-    with:
-      ssh_private_key: '${{ secrets.shed }}'
-      target_repo: 'git@e.coding.net:shed/mini-shed-starter.git'
-      source_folder: './packages/starter'
+      uses: ./.github/actions/git-pub
+      with:
+        ssh_private_key: '${{ secrets.shed }}'
+        target_repo: 'git@e.coding.net:shed/mini-shed-starter.git'
+        source_folder: './packages/starter'
 
         
