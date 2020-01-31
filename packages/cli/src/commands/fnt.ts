@@ -1,23 +1,23 @@
 import * as fs from "fs-extra";
-import * as log from "../log";
+import { Logger } from "../helpers/log";
 const util = require('util');
 const path = require('path');
 const stat = util.promisify(fs.stat);
 
 
-let _charMap: { [key: string]: any } = {}
+let _charMap: { [key: string]: any; } = {};
 
 export async function fnt(filename: string) {
 
 
-    let file = path.join(process.cwd(), filename)
+    let file = path.join(process.cwd(), filename);
     if (!fs.existsSync(file)) {
-        log.error(`${file} 不存在`);
+        Logger.error(`${file} 不存在`);
         return;
     }
-    let s = await stat(file)
+    let s = await stat(file);
     if (!s.isFile()) {
-        log.error(`${file} 不是文件`);
+        Logger.error(`${file} 不是文件`);
         return;
     }
 
@@ -77,7 +77,7 @@ export async function fnt(filename: string) {
 
 function _parseChar(lineArray: String[]) {
 
-    let str
+    let str;
     let char: {
         id?: number;
         x?: number;
@@ -88,13 +88,13 @@ function _parseChar(lineArray: String[]) {
         yoffset?: number;
         xadvance?: number;
         page?: number;
-    } = {}
+    } = {};
 
     for (let i = 1; i < lineArray.length; i++) {
         str = lineArray[i];
         if (str.length === 0)
             continue;
-        let key_value = str.split('=')
+        let key_value = str.split('=');
         // console.log(key_value[0], '===', key_value[1])
         switch (key_value[0]) {
 
@@ -127,6 +127,6 @@ function _parseChar(lineArray: String[]) {
                 continue;
         }
         if (char.id)
-            _charMap[String.fromCharCode(char.id)] = char
+            _charMap[String.fromCharCode(char.id)] = char;
     }
 }

@@ -71,7 +71,7 @@ function render() {
 
     // ctx._gl.depthFunc(ctx._gl.LEQUAL);
 
-    ctx.clear(true);
+    ctx.clear();
 
     mvMatrix.identity();
     mvMatrix.rotateY(angle * Deg2Rad);

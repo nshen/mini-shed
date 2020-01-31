@@ -1,4 +1,4 @@
-import { Context, Color, Program, VertexBuffer, IndexBuffer, Texture } from "../../";
+import { Context, Color, Program, VertexBuffer, IndexBuffer, Texture } from "@shed/gl";
 import { perspectiveFieldOfViewRH, Matrix3D, Rad2Deg, Deg2Rad } from '@shed/math'
 import * as dat from 'dat.gui'
 // import { vs, fs } from "./shaders";

@@ -1,37 +1,40 @@
 import * as fs from "fs-extra";
-import * as log from "../log";
+import { Logger } from "../helpers/log";
+import path from 'path';
+import chalk from "chalk";
 
 const clone = require('git-clone');
 const ora = require('ora');
 
 
-let repositories: { [key: string]: string } = {
-    'github': 'https://git.dev.tencent.com/nshen/coding-blog.git',
-    'coding': 'https://github.com/nshen/shed-gl.git'
-}
+let repositories: { [key: string]: string; } = {
+    'coding': 'https://e.coding.net/shed/mini-shed-starter.git',
+    'gitee': 'https://gitee.com/nshen/mini-shed-starter.git',
+};
 
-let spinner: any
+let spinner: any;
 
-export async function create(name: string, r: string = 'github') {
+export async function create(name: string, r: string = 'coding') {
 
-    let repo = repositories[r.toLowerCase()];
+    r = r.toLowerCase();
+    let repo = repositories[r];
     if (!repo) {
-        log.error(r + '不存在，请尝试指定 github 或 coding');
+        Logger.error(r + `不存在，请尝试指定 ${chalk.cyan('gitee')} 或 ${chalk.cyan('coding')}`);
         return;
     }
 
     let exists = await fs.pathExists(`./${name}`);
     if (exists) {
-        log.error(`"${name}" 已经存在，请使用不存在的目录名`);
+        Logger.error(`"${name}" 已经存在，请使用不存在的目录名`);
         return;
     }
 
-    spinner = ora(`正在从 ${r} 下载最新脚手架，请${randomThing()}稍等一下`)
-    spinner.start();
+    spinner = ora(`正在从 ${chalk.cyan(r)} 下载最新脚手架，请${randomThing()}稍等一下`).start();
 
     clone(repo, name, async (err: any) => {
         if (err) {
-            spinner.fail('下载失败，请检查网络并重试。')
+            spinner.fail(`下载失败，请检查网络并重试。`);
+            spinner.fail(`从 ${chalk.cyan(r)} 下载失败，请检查网络，或尝试 shed create ${name} ${r === 'github' ? 'coding' : 'github'}`);
             return;
         }
         try {
@@ -42,18 +45,22 @@ export async function create(name: string, r: string = 'github') {
             console.error(error);
         }
         // TODO: copy to __dirname?
-        spinner.succeed(`${name} 创建成功！`);
-
-        console.log(`请调用以下命令进入目录并安装依赖`);
-        log.command(`cd ${name}`);
-        log.command(`npm install`);
+        spinner.succeed(`成功在 ${path.join(process.cwd(), name)} 中创建了 ${chalk.cyan(name)} 项目！`);
+        console.log('在这个目录中，你可以调用以下命令：');
+        console.log();
+        console.log(chalk.cyan('  shed '));
+        console.log();
+        console.log(`建议你现在输入：`);
+        console.log(chalk.cyan(`  cd ${name}`));
+        console.log(chalk.cyan(`  npm install`));
+        console.log();
         console.log('发布小游戏请使用');
-        log.command('npm run build');
-    })
+        Logger.command('npm run build');
+    });
 
 }
 
-let thingsYouCanDo: string[] = ['喝杯水', '冲杯茶', '冲杯咖啡', '吃块糖', '直直腰', '起立走走', '眺望远方', '闭目养神', '上个洗手间'];
+let thingsYouCanDo: string[] = ['喝杯水', '冲杯茶', '冲杯咖啡', '吃块糖', '直直腰', '起立走走', '眺望远方', '闭目养神', '到处逛逛'];
 function randomThing(): string {
     return thingsYouCanDo[Math.floor(Math.random() * thingsYouCanDo.length)];
 }

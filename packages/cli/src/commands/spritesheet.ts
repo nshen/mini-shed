@@ -1,18 +1,18 @@
 const spritesheet = require('spritesheet-js');
 const path = require('path')
 import * as fs from "fs-extra";
-import * as log from "../log";
+import {Logger} from "../helpers/log";
 
 export async function createSpritesheet(folder: string) {
     let folderPath = path.join(process.cwd(), folder)
     console.log(folderPath)
     if (!await fs.pathExists(folderPath)) {
-        log.error(`目录 ${folderPath} 不存在`);
+        Logger.error(`目录 ${folderPath} 不存在`);
         return;
     }
     let images = await fs.readdir(folderPath)
     if (images.length <= 1) {
-        log.error('目录中应多于1张图片');
+        Logger.error('目录中应多于1张图片');
         return;
     }
 
@@ -25,11 +25,11 @@ export async function createSpritesheet(folder: string) {
             // height: 240,
         }, function (err: Error) {
             if (err) {
-                log.error('spritesheet-js:' + err.message);
-                log.error('此命令需要正确安装 ImageMagick 6.X，如有问题请到主页寻求帮助');
+                Logger.error('spritesheet-js:' + err.message);
+                Logger.error('此命令需要正确安装 ImageMagick 6.X，如有问题请到主页寻求帮助');
                 return;
             };
-            // 修改成shed.js需要的版本
+            // 修改成 mini-shed 需要的版本
             let str = fs.readFileSync(`${folder}.json`, 'utf8');
             let json = JSON.parse(str);
             let w = json.meta.size.w;
@@ -57,12 +57,4 @@ export async function createSpritesheet(folder: string) {
             console.log('spritesheet successfully generated');
         });
 }
-
-// let arr = [];
-// for (let i = 1; i <= 19; i++) {
-//     arr.push(`../src/assets/images/explosion${i}.png`);
-// }
-// arr.push('../src/assets/images/hero.png');
-// arr.push('../src/assets/images/enemy.png');
-// arr.push('../src/assets/images/bullet.png');
 

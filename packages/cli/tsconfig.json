@@ -1,6 +1,13 @@
 {
-    "extends": "../../tsconfig.base.json",
     "include": [
-        "src/*.ts"
-    ]
+        "src/**/*.ts",
+    ],
+    "compilerOptions": {
+        "outDir": "dist",
+        "sourceMap": false,
+        "declaration": false,
+        "module": "commonjs",
+        "resolveJsonModule": false,
+        "esModuleInterop": true
+    }
 }

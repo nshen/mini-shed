@@ -9,7 +9,7 @@
 		"autoAudits": false
 	},
 	"compileType": "game",
-	"libVersion": "2.6.4",
+	"libVersion": "2.9.4",
 	"appid": "wxfa03e051ca2762da",
 	"projectname": "@shed/starter",
 	"condition": {

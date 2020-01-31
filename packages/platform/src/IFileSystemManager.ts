@@ -50,7 +50,7 @@ export interface IFileSystemManager {
     /**
      * 获取该小程序下已保存的本地缓存文件列表
      */
-    getSavedFileList(): Promise<{ filePath: string, size: number, createTime: number }[]>
+    getSavedFileList(): Promise<{ filePath: string, size: number, createTime: number; }[]>;
 
     /**
      * 创建目录
@@ -70,7 +70,7 @@ export interface IFileSystemManager {
      * @param filePath 
      * @param encoding 
      */
-    readFile(filePath: string, encoding?: EncodingOption): Promise<string | ArrayBuffer>;
+    readFile<T extends string | ArrayBuffer>(filePath: string, encoding?: EncodingOption): Promise<T>;
 
     /**
      * 删除该小程序下已保存的本地缓存文件
@@ -104,22 +104,22 @@ export interface IFileSystemManager {
      * @param path 
      * @param recursive 
      */
-    stat(path: string, recursive?: boolean): Promise<{ [key: string]: Stats } | Stats>;
+    stat(path: string, recursive?: boolean): Promise<{ [key: string]: Stats; } | Stats>;
 
     /**
      * 删除文件
      * @param filePath 
      */
-    unlink(filePath: string): Promise<void>
+    unlink(filePath: string): Promise<void>;
 
     /**
      * 解压文件
      * @param zipFilePath 
      * @param targetPath 
      */
-    unzip(zipFilePath: string, targetPath: string): Promise<void>
+    unzip(zipFilePath: string, targetPath: string): Promise<void>;
 
-    writeFile(filePath: string, data: string | ArrayBuffer, encoding?: EncodingOption):Promise<void>
+    writeFile(filePath: string, data: string | ArrayBuffer, encoding?: EncodingOption): Promise<void>;
 
 
 }

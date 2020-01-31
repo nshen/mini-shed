@@ -2,31 +2,32 @@
   "name": "@shed/cli",
   "version": "0.2.0",
   "description": "mini-shed 命令行工具",
-  "module": "dist/cli.es.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
   "files": [
-    "dist"
+    "package.json",
+    "dist",
+    "platforms"
   ],
   "bin": {
-    "shed": "dist/cli.es.js",
-    "minished": "dist/cli.es.js",
-    "mini-shed": "dist/cli.es.js"
+    "shed": "dist/index.js",
+    "minished": "dist/index.js",
+    "mini-shed": "dist/index.js"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf dist/* && rollup -c --environment DEBUG:false & yarn build:types",
-    "build:types": "tsc --declaration true --emitDeclarationOnly --outDir ./dist",
-    "watch": "rimraf dist/* && rollup -c -w --environment DEBUG:false"
+    "watch": "rimraf dist/* && tsc -w",
+    "build": "rimraf dist/* && tsc",
+    "test": "yarn global add file:$PWD && shed"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.0.1",
     "@types/node": "^12.12.14",
-    "live-server": "^1.2.1",
     "typescript": "^3.7.2"
   },
   "dependencies": {
+    "live-server": "^1.2.1",
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.2",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
@@ -54,7 +55,8 @@
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-terser": "^5.1.2",
-    "spritesheet-js": "^1.2.6"
+    "spritesheet-js": "^1.2.6",
+    "update-check": "^1.5.3"
   },
   "keywords": [
     "mini-game",

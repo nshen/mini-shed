@@ -89,8 +89,8 @@ export class OPPOFileSystemManager implements IFileSystemManager {
         })
     }
 
-    readFile(filePath: string, encoding: EncodingOption = 'binary') {
-        return new Promise<string | ArrayBuffer>((resolve, reject) => {
+    readFile<T extends string | ArrayBuffer>(filePath: string, encoding: EncodingOption = 'binary') {
+        return new Promise<T>((resolve, reject) => {
             this.fs.readFile({
                 filePath,
                 encoding,

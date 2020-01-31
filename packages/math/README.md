@@ -2,7 +2,16 @@
 
 `@shed/math`  尝试兼顾效率与 API 易用性数学库
 
+## 安装
 
+```bash
+npm install @shed/math
+```
+或使用 `yarn`
+
+```bash
+yarn add @shed/math
+```
 ## 文档
 
 - 2D相关

@@ -4,7 +4,7 @@ let canvas: HTMLCanvasElement = document.getElementById('c') as HTMLCanvasElemen
 let gl = canvas.getContext('webgl');
 if (gl) {
     let ctx = new Context(gl);
-    // 蓝色背景清空
+    // 随机背景色
     ctx.clearColor = Color.random();
     ctx.clear();
 

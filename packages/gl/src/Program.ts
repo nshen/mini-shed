@@ -1,6 +1,7 @@
 import { Context } from "./Context";
 declare var __DEBUG__: boolean;
 
+// var __DEBUG__ = true;
 export class Program {
 
     protected static BINDING: Program | null;
@@ -11,8 +12,8 @@ export class Program {
     protected _vsSource: string;
     protected _fsSource: string;
 
-    protected _uniformLocationMap: { [name: string]: WebGLUniformLocation } = {};
-    protected _attributeLocationMap: { [name: string]: number } = {};
+    protected _uniformLocationMap: { [name: string]: WebGLUniformLocation; } = {};
+    protected _attributeLocationMap: { [name: string]: number; } = {};
 
     constructor(ctx: Context, vsSource: string, fsSource: string) {
 
@@ -92,7 +93,7 @@ export class Program {
      */
     public uniform1fv(uniform: string, value: Float32List) {
         this.bind();
-        this._ctx._gl.uniform1fv(this.getUniformLocation(uniform), value)
+        this._ctx._gl.uniform1fv(this.getUniformLocation(uniform), value);
     }
 
     public uVec2(uniform: string, value: number, value2: number) {
@@ -104,7 +105,7 @@ export class Program {
         this.bind();
         this._ctx._gl.uniform2fv(this.getUniformLocation(name), value);
     }
-    
+
     /**
      * uniform vec3 name
      * @param name 

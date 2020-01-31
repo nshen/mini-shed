@@ -58,7 +58,6 @@ export class CollisionSystem extends System {
             }
         }
 
-
         // for(let i in this._enemys.entityMap){
         //     e = this._enemys.entityMap[i];
         //     for(let j in this._players.entityMap){
@@ -69,8 +68,5 @@ export class CollisionSystem extends System {
         //         }
         //     }
         // }
-
-
-
     }
 }

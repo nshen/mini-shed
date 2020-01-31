@@ -185,7 +185,7 @@ export class Matrix2D implements ICommonMethod<Matrix2D>{
         return this;
     }
 
-    public toArray(out: Float32Array | Array<number>): Float32Array | Array<number> {
+    public toArray<T extends Float32Array | Array<number>>(out: T): T {
         out[0] = this.a;
         out[1] = this.b;
         out[2] = 0;

@@ -1,30 +1,69 @@
 # @shed/gl
 
-`@shed/gl` 是 WebGL 的包装与抽象，用以简化 `WebGL API` 使用
+:hammer: WebGL 的包装与抽象，用以简化 `WebGL API` 使用
 
-## Context
+## 安装
 
-取得一个WebGL上下文：
+```bash
+npm install @shed/gl
+```
+或使用 `yarn`
+
+```bash
+yarn add @shed/gl
+```
+
+## 用法
 
 ```typescript
-let canvas = document.getElementById('Canvas'); 
+import { Context, Color } from '@shed/gl';
+
+let canvas = document.getElementById('myCanvas');
 let gl = canvas.getContext('webgl');
-if(!gl){
-    console.log('你的浏览器不支持WebGL');
+if (gl) {
+    // 用 Context 包装原始的 WebGLRenderingContext 对象后
+    // 就可以调用Context上的方法了
+    let ctx = new Context(gl);
+    // 随机背景色
+    ctx.clearColor = Color.random();
+    ctx.clear();
+} else {
+    console.log('no webgl support');
 }
-let ctx = new Context(gl);
-```
-之后就可以调用`Context`的方法了
-
-```typescript
-let ctx = new Context(gl);
-// 用随机背景色清空画布
-ctx.clearColor = Color.random();
-ctx.clear();
-
 ```
 
-## Program
+## API
+
+
+- [Context](#context)
+- [Attributes and Uniforms](#attributes-and-uniforms)
+- [Program](#program)
+- [VertexBuffer](#vertexbuffer)
+- [IndexBuffer](#indexbuffer)
+- [Texture](#texture)
+- [Color](#color)
+
+
+### Context
+
+>有待完善
+
+### Attributes and Uniforms 
+
+`Uniforms` 和 `Attributes` 都是输入到 `Shader` 中的数据。
+
+- Uniforms 在所有顶点中都相同
+- Attributes 通常在每个顶点中都不同
+
+由于 Uniforms 在所有顶点上都相同，所以应该直接设置在Program上
+
+```
+program.uXXX(...)
+```
+
+Attributes 则应该设置在 `VertexBuffer` 上，让其每个顶点都不同
+
+### Program
 
 Vertex Shader
 
@@ -53,47 +92,53 @@ void main(void) {
 program = new Program(ctx, vs, fs).bind();
 ```
 
-## Attributes and Uniforms 
+>有待完善
 
-`Uniforms` 和 `Attributes` 都是输入到 `Shader` 中的数据。
+### VertexBuffer
 
-- Uniforms 在所有顶点中都相同
-- Attributes 通常在每个顶点中都不同
-
-由于 Uniforms 在所有顶点上都相同，所以应该直接设置在Program上
-
-```
-program.uXXX(...)
-```
-
-Attributes 则应该设置在 `VertexBuffer` 上，让其每个顶点都不同
-
-
-
-
-## VertexBuffer
-
-向显存中上传Buffer是非常慢的，所以最好是一次上传一个大的buffer，而不应该上传很多buffer。
+向显存中上传 `Buffer` 是非常慢的，所以最好是一次上传一个大的`buffer`，而不应该上传很多小 `buffer`。
 
 多个buffer
 
-| x ,y |
-|size|
-| r , g , b|
+```
+buffer1 -> | x , y |
 
-不如上传
+buffer2 -> | size |
 
-| x,y,size,r,g,b |
+buffer3 -> | r , g , b|
+```
 
-这种叫做 Interleaved Buffer
+不如一次上传
 
-## IndexBuffer
+```
+| x , y , size , r , g , b |
+```
+
+这种叫做 `Interleaved Buffer`, 在 `VertexBuffer` 类中很容易实现上述优化
+
+>有待完善
+
+### IndexBuffer
+
+>有待完善
+
+### Texture
+
+>有待完善
+
+### Color
+
+>有待完善
+
+## Contributors
+
+* [nshen](https://github.com/nshen)
+
+## License
+
+[The MIT License](http://opensource.org/licenses/MIT)
 
 
 
-## Texture
 
 
-## DrawCall
-
-Draw calls can be the most expensive call.

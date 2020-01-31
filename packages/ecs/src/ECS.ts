@@ -79,10 +79,8 @@ export class ECS {
         this._systems.push(sys);
     }
 
-    static groups: Readonly<{ [key: string]: Group; }>;
     async init(): Promise<void> {
         try {
-            ECS.groups = this._groupCache;
             const len = this._systems.length;
             for (let i = 0; i < len; i++) {
                 await this._systems[i].prepare();

@@ -2,8 +2,8 @@
 import { Gameloop } from "@shed/utils";
 import { Context } from "@shed/gl";
 import { Platform } from "@shed/platform";
-import { ECS, Entity } from "@shed/ecs";
-import { Render2DSystem, Render2DComponent } from "@shed/render2d-system";
+import { ECS } from "@shed/ecs";
+import { Render2DSystem } from "@shed/render2d-system";
 
 import { SpriteSheetData } from "./utils/SpriteSheetData";
 import { PrefebPool } from "./utils/PrefebPool";
@@ -22,7 +22,6 @@ export class Main {
     protected _ecs!: ECS;
 
     constructor() {
-        console.log('game start!!!!');
         this.init();
     }
 
@@ -33,7 +32,9 @@ export class Main {
     }
 
     update(elapsed: number) {
-        // console.log('update: ', elapsed);
+        if (Platform.isH5) {
+            this._ctx.adjustSize();
+        }
         this._ctx.clear();
         this._ecs.state.elapsed = elapsed;
         this._ecs.update();
@@ -41,10 +42,14 @@ export class Main {
 
     private async initECS() {
         this._ecs = new ECS();
+
+        // ecs.state 是全局共享数据的地方,任何系统都可随时访问修改,使用时应注意
         this._ecs.state.ctx = this._ctx;
         this._ecs.state.canvas = this._canvas;
         this._ecs.state.assets = await this.loadAssets();
         this._ecs.state.pool = new PrefebPool(this._ecs, this._ecs.state.assets['spritesheet'] as SpriteSheetData);
+
+        // 开始添加 System
         this._ecs.addSystem(new BackgroundSystem(this._ecs));
         this._ecs.addSystem(new PlayerSystem(this._ecs));
         this._ecs.addSystem(new BulletSystem(this._ecs));
@@ -55,6 +60,7 @@ export class Main {
             this._ecs.state.pool.releaseExplosion,
             this._ecs.state.assets
         );
+
         // 预定义一个爆炸动画
         spritesheetSystem.addAnimation('spritesheet', 'explosion', false,
             [
@@ -79,7 +85,8 @@ export class Main {
                 'explosion19.png'
             ]);
         this._ecs.addSystem(spritesheetSystem);
-        // 分层渲染
+
+        // Render2DSystem 分层渲染
         const renderSystem = new Render2DSystem(this._ecs, this._ctx, this._ecs.state.assets, true);
         renderSystem.addLayer(this._ecs.getGroup('bg', 'render2d', 'transform'));
         renderSystem.addLayer(this._ecs.getGroup('enemy', 'render2d', 'transform'));
@@ -87,6 +94,7 @@ export class Main {
         renderSystem.addLayer(this._ecs.getGroup('player', 'render2d', 'transform'));
         renderSystem.addLayer(this._ecs.getGroup('spriteSheetAnimation', 'render2d', 'transform'));//explosion
         this._ecs.addSystem(renderSystem);
+
         await this._ecs.init();
     }
 
@@ -95,7 +103,7 @@ export class Main {
             let store = {};
             store['images/bg.jpg'] = await Platform.get().loadImage('images/bg.jpg');
             store['images/spritesheet.png'] = await Platform.get().loadImage('images/spritesheet.png');
-            store['images/spritesheet.json'] = await (await fetch('images/spritesheet.json')).json();
+            store['images/spritesheet.json'] = JSON.parse(await Platform.get().getFileSystemManager().readFile<string>('images/spritesheet.json'));
             store['spritesheet'] = new SpriteSheetData('images/spritesheet.png', store['images/spritesheet.json']);
             return store;
         }

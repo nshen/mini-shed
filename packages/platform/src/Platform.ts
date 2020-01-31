@@ -4,26 +4,22 @@ import { WXPlatform } from "./wx/WXPlatform";
 import { QQPlatform } from "./qq/QQPlatform";
 import { TTPlatform } from "./tt/TTPlatform";
 import { OPPOPlatform } from "./oppo/OPPOPlatform";
-// import * from "./env";
-/*
-__PLATFORM_H5__
-__PLATFORM_WX__
-__PLATFORM_QQ__
-__PLATFORM_TT__
-__PLATFORM_OPPO__
-*/
 
-// 编译后自动赋值
+// shed编译时赋值平台，其他非该平台的代码会被 tree shaking 掉
 declare var __DEBUG__: boolean;
 declare var __PLATFORM_H5__: boolean;
 declare var __PLATFORM_WX__: boolean;
 declare var __PLATFORM_QQ__: boolean;
 declare var __PLATFORM_TT__: boolean;
 declare var __PLATFORM_OPPO__: boolean;
+
 export class Platform {
 
     protected static _platform: IPlatform;
 
+    /**
+     * 取得通用平台API的抽象
+     */
     public static get(): IPlatform {
         if (!Platform._platform) {
             if (__PLATFORM_H5__)

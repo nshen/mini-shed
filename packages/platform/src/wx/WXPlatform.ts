@@ -37,10 +37,18 @@ export class WXPlatform implements IPlatform {
 
     // 网路
     request<T>(options: IRequestOptions): Promise<IRequestResponse<T>> {
-        return wx.request(options)
+        // return wx.request(options)
         // const p = new Promise((resolve, reject) => {
 
         // })
+
+        return new Promise<IRequestResponse<T>>((resolve, reject) => {
+            wx.request({
+                ...options,
+                success:resolve,
+                fail: reject
+            })
+        })
     }
 
     downloadFile(options: IDownloadOptions) {
