@@ -1,7 +1,7 @@
 {
   "name": "@shed/starter",
   "version": "0.2.0",
-  "description": "mini-shed starter",
+  "description": "mini-shed 小游戏示例项目",
   "module": "dist/mini-game.es.js",
   "keywords": [
     "mini-game",

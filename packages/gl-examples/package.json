@@ -4,6 +4,7 @@
   "description": "examples of @shed/gl",
   "module": "dist/gl-examples.es.js",
   "types": "dist/index.d.ts",
+  "private": true,
   "files": [
     "dist"
   ],

@@ -8,6 +8,7 @@ export class Logger {
     }
 
     static command(str: string) {
-        console.log(chalk.blue.bold(str));
+        // console.log(chalk.blue.bold(str));
+        console.log(chalk.cyan(str)) 
     }
 }

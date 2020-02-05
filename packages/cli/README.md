@@ -23,9 +23,17 @@ shed -h  # -h显示所有命令的 help 信息
 
 ## 用法
 
+安装成功之后即可在命令行中调用`shed`命令，`shed -h` 查看帮助。
+
 通常为 `shed` + `命令` + `--参数` 的方式使用命令行
 
-### 创建一个新游戏
+## 所有命令
+
+- `shed create <name>` [创建一个新的小游戏](###创建一个新的小游戏)
+- `shed build <platform>` [编译到小游戏平台](###编译到小游戏平台)
+- `shed spritesheet <folder>`   [创建一个`spritesheet`](###创建一个`spritesheet`)
+- `shed fnt <file>` [fnt 格式转 json](###fnt-格式转-json)                   
+### 创建一个新的小游戏
 
 ```bash
 > shed create myGame  # 在当前目录下创建一个新游戏叫做 `myGame`
@@ -59,11 +67,15 @@ shed -h  # -h显示所有命令的 help 信息
 
 通常调用后会发布到一个独立**文件夹**下，打开对应的**开发者工具**导入该**文件夹**，根据需要修改对应平台的参数。
 
-### 创建一个 `spritesheet`
+各平台不同，且在发展之中，但大同小异，具体参数还需参看各[小游戏平台参考文档](###小游戏平台参考文档)，做相应的修改。
 
-此命令需要提前安装 `ImageMagick 6.X`
+### 创建一个`spritesheet`
+
+
 
 命令为 `shed + spritesheet + 文件夹`
+
+>此命令需要提前安装 [`ImageMagick 6.X`](https://imagemagick.org/download/releases/)
 
 ```bash
 > shed spritesheet ./images   #将./images目录下所有图片打包成一个 spritesheet
@@ -82,10 +94,10 @@ shed fnt ./myfont.fnt  # 将./myfont.fnt 转换成 ./myfont.json
 shed -h
 ```
 
-## 小游戏平台文档
+## 小游戏平台参考文档
 
-OPPO https://open.oppomobile.com/wiki/doc#id=10516
-
+- OPPO https://open.oppomobile.com/wiki/doc#id=10516
+- 快应用 https://doc.quickapp.cn/framework/manifest.html
 
 ## Contributors
 
@@ -96,6 +108,5 @@ OPPO https://open.oppomobile.com/wiki/doc#id=10516
 [The MIT License](http://opensource.org/licenses/MIT)
 
 
-Build
-快应用 https://doc.quickapp.cn/framework/manifest.html
+
 
