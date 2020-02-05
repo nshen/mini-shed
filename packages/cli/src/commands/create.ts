@@ -55,7 +55,8 @@ export async function create(name: string, r: string = 'coding') {
         console.log();
         console.log('依赖安装后，可用以下命令预览小游戏：');
         console.log();
-        useYarn ? Logger.command('yarn dev') : Logger.command('npm run dev');
+        useYarn ? Logger.command('  yarn dev') : Logger.command('  npm run dev');
+        console.log();
     });
 
 }

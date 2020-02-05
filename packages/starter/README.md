@@ -1,6 +1,6 @@
 # @shed/starter
 
-:hammer: 用 `@shed/cli` 创建的演示游戏
+:hammer: 用 `shed create` 命令创建的演示游戏
 
 ## 安装依赖
 
