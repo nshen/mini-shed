@@ -1,6 +1,6 @@
 # @shed/platform
 
-:hammer: 以微信小游戏为基准，统一各小游戏平台提供的`API` ，并 `Promise` 化，
+:hammer: 以微信小游戏为基准，统一各小游戏平台提供的`API`，并 `Promise` 化
 
 各个小游戏平台均实现了 `IPlatform` 接口
 

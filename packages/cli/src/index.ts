@@ -59,12 +59,11 @@ program.parse(process.argv);
 if (process.argv.length <= 2) {
 
     console.log(chalk.cyan(figlet.textSync('mini-shed', { horizontalLayout: 'full' })));
-    console.log('感谢尝试 mini-shed 小游戏框架 < https://github.com/nshen/mini-shed >');
-    // console.log('https://github.com/nshen/mini-shed/issues');
-    console.log('有任何问题请入QQ群：431085380');
-    console.log('shed -h 可显示更多帮助信息');
-    console.log('--------------------------\n');
-
+    console.log('感谢尝试 ' + chalk.cyan('mini-shed v' + pkg.version) + ' 小游戏框架');
+    console.log('有问题请到此留言：', chalk.cyan('<https://github.com/nshen/mini-shed/issues>'));
+    console.log(chalk.cyan('shed -h') + ' 可显示更多帮助信息');
+    console.log();
+    // console.log('----------------------------------------------------\n');
     // program.help();
 } else {
     // clear();
