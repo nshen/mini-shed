@@ -1,6 +1,6 @@
 {
   "name": "@shed/new-package",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "a new mini-shed package",
   "module": "dist/new-package.es.js",
   "types": "dist/index.d.ts",
