@@ -1,5 +1,10 @@
 {
+    "compilerOptions": {
+        "module": "ESNext",
+        "target": "ESNext",
+        "moduleResolution": "node"
+    },
     "include": [
         "src/*.ts"
-    ]
+    ],
 }
