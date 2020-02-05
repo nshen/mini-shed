@@ -1,0 +1,20 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "declaration": true,
+        "declarationMap": true,
+        "isolatedModules": false,
+        "noEmit": false,
+        "allowJs": false,
+        "emitDeclarationOnly": true,
+        "baseUrl": "./src"
+
+    },
+    "exclude": [
+        "**/*.test.ts"
+    ],
+    "include": [
+        "src/index.ts"
+    ]
+}

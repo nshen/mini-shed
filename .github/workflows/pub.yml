@@ -1,0 +1,29 @@
+name: pub
+on: [push]
+jobs:
+  gitee:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - name: pub
+      uses: ./.github/actions/git-pub
+      with:
+        ssh_private_key: '${{ secrets.shed }}'
+        target_repo: 'git@gitee.com:nshen/mini-shed-starter.git'
+        source_folder: './packages/starter'
+  coding:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - name: pub
+      uses: ./.github/actions/git-pub
+      with:
+        ssh_private_key: '${{ secrets.shed }}'
+        target_repo: 'git@e.coding.net:shed/mini-shed-starter.git'
+        source_folder: './packages/starter'
+
+        

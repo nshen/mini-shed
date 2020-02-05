@@ -1,0 +1,26 @@
+name: git-pub
+description: 'push files to another git repository'
+branding:
+    icon: 'git-commit'
+    color: 'blue'
+inputs:
+    ssh_private_key:
+        description: 'ssh private key of target git repository (secrets.gitee)'
+        required: true
+    target_repo:
+        description: 'target repository only support git proto'
+        required: true
+    target_branch:
+        description: 'target branch default master'
+        default: 'master'
+    source_folder:
+        description: 'source folder'
+        default: '.'
+runs:
+    using: 'docker'
+    image: 'Dockerfile'
+    args:
+        - ${{ inputs.ssh_private_key }}
+        - ${{ inputs.target_repo }}
+        - ${{ inputs.target_branch }}
+        - ${{ inputs.source_folder }}

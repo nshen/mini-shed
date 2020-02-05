@@ -1,0 +1,36 @@
+{
+  "name": "@shed/starter",
+  "version": "0.2.0",
+  "description": "mini-shed 小游戏示例项目",
+  "module": "dist/mini-game.es.js",
+  "keywords": [
+    "mini-game",
+    "wechat"
+  ],
+  "author": "nshen <nshen121@gmail.com>",
+  "homepage": "https://github.com/nshen/mini-shed#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nshen/mini-shed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nshen/mini-shed/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@shed/ecs": "^0.2.0",
+    "@shed/gl": "^0.2.0",
+    "@shed/math": "^0.2.0",
+    "@shed/platform": "^0.2.0",
+    "@shed/render2d-system": "^0.2.0",
+    "@shed/utils": "^0.2.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  },
+  "scripts": {
+    "build": "shed build h5",
+    "serve": "live-server --open=./dist/h5 -q",
+    "dev": "shed build h5 --debug --watch"
+  }
+}
