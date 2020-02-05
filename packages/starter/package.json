@@ -32,5 +32,6 @@
     "build": "shed build h5",
     "serve": "live-server --open=./dist/h5 -q",
     "dev": "shed build h5 --debug --watch"
-  }
+  },
+  "gitHead": "5163b0e9f85641db21b730a1c2032ac9605e8ec9"
 }
