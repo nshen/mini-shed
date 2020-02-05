@@ -46,7 +46,7 @@
   "license": "MIT",
   "dependencies": {
     "@shed/ecs": "^0.2.0",
-    "@shed/math": "^0.2.0",
-    "@shed/gl": "^0.2.0"
+    "@shed/gl": "^0.2.0",
+    "@shed/math": "^0.2.0"
   }
 }

@@ -27,7 +27,6 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
-    "live-server": "^1.2.1",
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.2",
     "@babel/plugin-proposal-class-properties": "^7.7.0",
@@ -43,6 +42,7 @@
     "fs-extra": "^8.1.0",
     "git-clone": "^0.1.0",
     "glob": "^7.1.6",
+    "live-server": "^1.2.1",
     "ora": "^4.0.3",
     "qrcode": "^1.4.4",
     "rimraf": "^3.0.0",
