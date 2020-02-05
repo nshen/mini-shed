@@ -1,6 +1,6 @@
 {
   "name": "@shed/cli",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "mini-shed 命令行工具",
   "module": "dist/index.js",
   "files": [
@@ -72,5 +72,5 @@
     "url": "https://github.com/nshen/mini-shed/issues"
   },
   "license": "MIT",
-  "gitHead": "5163b0e9f85641db21b730a1c2032ac9605e8ec9"
+  "gitHead": "a5a3082dd23fc78f64cea163d3c105f4aaf8c978"
 }

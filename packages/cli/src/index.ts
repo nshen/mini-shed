@@ -62,7 +62,6 @@ if (process.argv.length <= 2) {
     console.log('感谢尝试 ' + chalk.cyan('mini-shed v' + pkg.version) + ' 小游戏框架');
     console.log('有问题请到此留言：', chalk.cyan('<https://github.com/nshen/mini-shed/issues>'));
     console.log(chalk.cyan('shed -h') + ' 可显示更多帮助信息');
-    console.log();
     // console.log('----------------------------------------------------\n');
     // program.help();
 } else {
