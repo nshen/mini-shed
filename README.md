@@ -1,7 +1,7 @@
 
 
 
-<p align="center"><img width="404" src="logo.png" alt="mini-shed 小游戏，小框架"></a></p>
+<p align="center"><img width="404" src="./docs/logo.png" alt="mini-shed 小游戏，小框架"></a></p>
 <h3 align="center">一个开放，模块化，数据驱动，前端友好的小游戏框架（实验中）</h3> 
 
 ---
@@ -58,8 +58,13 @@ yarn global add @shed/cli
 在 `myGame` 目录中运行
 
 ```bash
-> shed build h5 --watch
+> yarn dev # 或者 npm run dev
 ```
+编译后电脑会立刻弹开默认浏览器，并且生成本地二维码，手机扫描可与电脑同时查看效果。
+
+此时代码在监视模式中，修改代码保存，电脑和手机浏览器会自动刷新。
+
+<img src="./docs/build.gif"  width="487px" height="643px" />
 
 其他命令见 [@shed/cli](./packages/cli) 文档页
 
