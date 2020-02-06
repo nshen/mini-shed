@@ -80,13 +80,6 @@ mini-shed 中的包是标准的 npm 包，可按需组合，并不局限在下�
 | [@shed/platform] | [![shed-platform-status]][@shed/platform-package] | 以微信小游戏为基准，统一各小游戏平台提供的`API`，并 `Promise` 化 |
 | [@shed/utils]    | [![shed-utils-status]][@shed/utils-package] |  一些实用类或函数 |
 
-#### 默认demo包
-
-| Package | Status | Description |
-|---------|--------|-------------|
-| [@shed/starter]  | [![shed-starter-status]][@shed/starter-package] | 使用`shed create` 命令创建的默认demo |
-
-
 #### 新包模板
 
 创建一个新包可以基于此修改
@@ -108,6 +101,11 @@ mini-shed 中的包是标准的 npm 包，可按需组合，并不局限在下�
 [@shed/render2d-system-status]: https://img.shields.io/npm/v/@shed/render2d-system.svg
 [@shed/render2d-system-package]: https://www.npmjs.com/package/@shed/render2d-system
 
+#### 默认demo包
+
+| Package | Description |
+|---------| ------------|
+| [@shed/starter] | 使用`shed create` 命令创建的默认demo |
 
 [@shed/cli]: ./packages/cli
 [@shed/ecs]: ./packages/ecs
