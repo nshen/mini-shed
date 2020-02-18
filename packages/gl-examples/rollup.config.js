@@ -1,8 +1,8 @@
-import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import template from 'rollup-plugin-generate-html-template';
 import copy from 'rollup-plugin-copy-glob';
 import replace from '@rollup/plugin-replace';
+import resolve from '@rollup/plugin-node-resolve';
 
 const extensions = [
     '.ts'

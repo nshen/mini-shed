@@ -5,10 +5,10 @@ import { getIPAddress } from '../../helpers/getIPAddress';
 import { rollup, watch, OutputOptions } from "rollup";
 
 // rollup plugins
+const replace = require("@rollup/plugin-replace");
+const resolve = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
 import { terser } from "rollup-plugin-terser";
-const replace = require("rollup-plugin-replace");
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
 const babel = require('rollup-plugin-babel');
 const copy = require('rollup-plugin-copy-glob');
 const sourcemaps = require('rollup-plugin-sourcemaps');

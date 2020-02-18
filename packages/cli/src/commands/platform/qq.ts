@@ -3,9 +3,9 @@ import { FileHelper } from '../../helpers/FileHelper';
 import { rollup, watch, OutputOptions } from "rollup";
 
 import { terser } from "rollup-plugin-terser";
-const replace = require("rollup-plugin-replace");
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
+const replace = require("@rollup/plugin-replace");
+const resolve = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
 const babel = require('rollup-plugin-babel');
 const copy = require('rollup-plugin-copy-glob');
 const sourcemaps = require('rollup-plugin-sourcemaps');
