@@ -99,10 +99,10 @@ export async function build_wx(environment: BuildEnvironment, watchMode: boolean
                     console.log('------------------------------------------------');
                     spinner.fail(chalk.red('编译错误') + ' 发现错误如上，请在尝试' + chalk.bold('修复') + '后' + chalk.bold('保存') + '文件，我仍会' + chalk.bold('自动编译') + ' (～o￣3￣)～');
                     break;
-                case "FATAL":
-                    console.timeEnd('用时');
-                    spinner.fail('编译失败' + e.error.toString());
-                    break;
+                // case "FATAL":
+                //     console.timeEnd('用时');
+                //     spinner.fail('编译失败' + e.error.toString());
+                //     break;
                 default:
                     break;
             }
