@@ -2,7 +2,7 @@
   "name": "@shed/platform",
   "version": "0.2.0",
   "description": "小游戏跨平台API",
-  "module": "dist/platform.es.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -11,24 +11,11 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf dist/* && rollup -c --environment DEBUG:false & yarn build:types",
-    "build:types": " tsc --project tsconfig.types.json",
-    "watch": "rimraf dist/* && rollup -c -w --environment DEBUG:false"
+    "build": "rimraf dist && tsc -p tsconfig.build.json"
   },
   "devDependencies": {
-    "@babel/cli": "7.8.4",
-    "@babel/core": "7.8.4",
-    "@babel/plugin-proposal-class-properties": "7.8.3",
-    "@babel/plugin-proposal-numeric-separator": "7.8.3",
-    "@babel/plugin-proposal-object-rest-spread": "7.8.3",
-    "@babel/preset-typescript": "7.8.3",
-    "@rollup/plugin-node-resolve": "7.1.1",
     "rimraf": "3.0.2",
-    "rollup": "1.31.1",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-generate-html-template": "1.6.1",
-    "rollup-plugin-terser": "5.2.0",
-    "typescript": "3.7.5"
+    "typescript": "3.8.3"
   },
   "keywords": [
     "mini-game",

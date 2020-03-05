@@ -11,7 +11,6 @@ const commonjs = require('@rollup/plugin-commonjs');
 import { terser } from "rollup-plugin-terser";
 const babel = require('rollup-plugin-babel');
 const copy = require('rollup-plugin-copy-glob');
-const sourcemaps = require('rollup-plugin-sourcemaps');
 
 const chalk = require('chalk');
 const ora = require('ora');
@@ -28,14 +27,17 @@ export async function build_h5(environment: BuildEnvironment, watchMode: boolean
         input: FileHelper.PROJECT_ENTRY,
         external: [],
         plugins: [
+            // sourcemaps(),
             replace(environment),
             resolve({ extensions }),
             commonjs(),
             babel({
                 cwd: FileHelper.CLI_ROOT,
                 extensions,
+                inputSourceMap: false, // 不引入 sourcemap ，重新生成，否则 sourcemap 不匹配
+                sourceMaps: environment.__DEBUG__,
                 // exclude: null,
-                include: ['src/**/*'],
+                // include: ['src/**/*'],
                 presets: ["@babel/preset-typescript"],
                 plugins: [
                     ["@babel/proposal-class-properties", { "loose": true }],
@@ -48,7 +50,6 @@ export async function build_h5(environment: BuildEnvironment, watchMode: boolean
                 { files: `${FileHelper.PROJECT_ROOT}/src/assets/**`, dest: `${FileHelper.PROJECT_DIST_H5}` },
             ], { verbose: false }),
             !environment.__DEBUG__ && terser(),
-            environment.__DEBUG__ && sourcemaps(),
         ]
     };
 
@@ -58,6 +59,7 @@ export async function build_h5(environment: BuildEnvironment, watchMode: boolean
         file: `${FileHelper.PROJECT_DIST_H5}/game.js`,
         format: 'iife',
         sourcemap: environment.__DEBUG__,
+        // sourcemap: true,
         esModule: false
     };
 

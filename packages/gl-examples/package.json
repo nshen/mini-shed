@@ -12,7 +12,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf dist/* && rollup -c --environment DEBUG:false",
+    "build2": "rimraf dist/* && rollup -c --environment DEBUG:false",
     "build:types": "tsc --declaration true --emitDeclarationOnly --outDir ./dist",
     "watch": "rimraf dist/* && rollup -c -w --environment DEBUG:true ",
     "serve": "live-server ./dist --port=9090",

@@ -1,4 +1,3 @@
-import "./debug.d.ts";
 export * from './Color'
 export * from './Context'
 export * from './Program'

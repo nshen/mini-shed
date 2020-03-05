@@ -8,7 +8,6 @@ const resolve = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
 const babel = require('rollup-plugin-babel');
 const copy = require('rollup-plugin-copy-glob');
-const sourcemaps = require('rollup-plugin-sourcemaps');
 
 const chalk = require('chalk');
 const ora = require('ora');
@@ -29,16 +28,13 @@ export async function build_oppo(environment: BuildEnvironment, watchMode: boole
             babel({
                 cwd: FileHelper.CLI_ROOT,
                 extensions,
+                inputSourceMap: false, // 不引入 sourcemap ，重新生成，否则 sourcemap 不匹配
+                sourceMaps: environment.__DEBUG__,
                 // exclude: null,
-                include: ['src/**/*'],
+                // include: ['src/**/*'],
                 presets: ["@babel/preset-typescript"],
                 plugins: [
-                    [
-                        "@babel/proposal-class-properties",
-                        {
-                            "loose": true
-                        }
-                    ],
+                    ["@babel/proposal-class-properties", { "loose": true }],
                     "@babel/proposal-object-rest-spread",
                     ["babel-plugin-transform-async-to-promises", { "inlineHelpers": true }]
                 ]
