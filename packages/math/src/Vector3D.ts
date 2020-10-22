@@ -241,10 +241,10 @@ export class Vector3D {
      * @param theta θ 从x轴绕z轴逆时针旋转到v投影到xy平面, azimuthal angle θ
      */
     public fromSphericalCoordinates(r: number, phi: number, theta: number) {
-        let sinPhi = Math.sin(phi)
+        let sinPhi = Math.sin(phi);
         this.x = r * sinPhi * Math.cos(theta);
         this.y = r * sinPhi * Math.sin(theta);
-        this.z = r * Math.cos(phi)
+        this.z = r * Math.cos(phi);
         return this;
     }
 
@@ -263,24 +263,26 @@ export class Vector3D {
     /**
      * Copies all of vector data from the source Vector3D object into the calling Vector3D object.
      */
-    public copyFrom(v: Vector3D): void {
+    public copyFrom(v: Vector3D): this {
         this.x = v.x;
         this.y = v.y;
         this.z = v.z;
         this.w = v.w;
+        return this;
     }
 
-    public copyPosition(m: Matrix3D) {
+    public copyPosition(m: Matrix3D): this {
         this.x = m.n14;
         this.y = m.n24;
         this.z = m.n34;
         this.w = m.n44;
+        return this;
     }
 
     /**
      * Sets the members of Vector3D to the specified values
      */
-    public reset(x: number = 0, y: number = 0, z: number = 0): Vector3D {
+    public reset(x: number = 0, y: number = 0, z: number = 0): this {
         this.x = x;
         this.y = y;
         this.z = z;
